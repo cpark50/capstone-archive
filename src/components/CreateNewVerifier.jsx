@@ -47,9 +47,9 @@ const VerifierPopup = () => {
         // add to auth 
         try {
             // TODO PUT BACK 
-            // const res = await createUserWithEmailAndPassword(
-            //     auth, username, password
-            // )
+            const res = await createUserWithEmailAndPassword(
+                auth, username, password
+            )
             await addDoc(collection(firestore, "users"), {
                 name: username,
                 password: password,

@@ -4,6 +4,7 @@ import AuthReducer from "./AuthReducer";
 const INITIAL_STATE = {
     // TODO: store in local 
     currentUser: null, // FOR SOME REASON THIS IS ALWAYS GOING TO BE UNDEFINED AHHHHHHHH
+    // TODO: Make sure important information is not show in the local 
     permissionLevel: JSON.parse(localStorage.getItem("user")) || null,
     accessLevel: JSON.parse(localStorage.getItem("permission")) || null
 
