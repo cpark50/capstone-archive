@@ -165,9 +165,20 @@ label[for="login-password"] {
 
     }
 
+.error-message {
+    color: #D8000C; 
+    background-color: #FFD2D2; 
+    padding: 1px;
+    margin-top: 160px;
+    margin-left: -85px; 
+    border-radius: 5px; 
+    border: 1px solid #D8000C; 
+    text-align: center; 
+    font-size: 14px;
+    width: 400px; 
 
+}
     
-
 #LoginButton {
 /* Login in button */
 position: absolute;
