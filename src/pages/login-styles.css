@@ -100,7 +100,7 @@ label[for="login-email"] {
     position: absolute;
     left: 80px;  /*Adjust "UCI Email"*/
     transform: translateX(-50%);
-    top: 105px; /* Adjust the position to place it above the input field */
+    top: 90px; /* Adjust the position to place it above the input field */
 }
 
 
@@ -110,7 +110,7 @@ label[for="login-email"] {
     transform: translateX(-50%);
     width: 400px;
     height: 50px;
-    top: 130px;
+    top: 115px;
     /* placeholder text */
     font-family: 'Inter';
     font-style: normal;
@@ -139,7 +139,7 @@ label[for="login-password"] {
     position: absolute;
     left: 80px;  /*Adjust "UCI Email"*/
     transform: translateX(-50%);
-    top: 200px; /* Adjust the position to place it above the input field */
+    top: 185px; /* Adjust the position to place it above the input field */
 }
 
 #login-password {
@@ -151,7 +151,7 @@ label[for="login-password"] {
     transform: translateX(-50%);
     width: 400px;
     height: 50px;
-    top: 225px;
+    top: 210px;
     /* placeholder text */
     font-family: 'Inter';
     font-style: normal;
@@ -169,7 +169,7 @@ label[for="login-password"] {
     color: #D8000C; 
     background-color: #FFD2D2; 
     padding: 1px;
-    margin-top: 160px;
+    margin-top: 150px;
     margin-left: -85px; 
     border-radius: 5px; 
     border: 1px solid #D8000C; 
