@@ -166,11 +166,13 @@ label[for="login-password"] {
     }
 
 .error-message {
+    position: absolute;
+    top: 275px; 
+    left: 50%;
+    transform: translateX(-50%);
     color: #D8000C; 
     background-color: #FFD2D2; 
     padding: 1px;
-    margin-top: 135px;
-    margin-left: -105px; 
     border-radius: 5px; 
     border: 1px solid #D8000C; 
     text-align: center; 
