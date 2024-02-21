@@ -34,11 +34,16 @@ export const Login = () => {
 // It will submit the user&password to login
     const handlelogin = (e) => {
         e.preventDefault();
+        if (!email || !password) {
+            setErrorMessage("Email or password cannot be empty"); // Update error message state
+            return;
+        }
 
 
 
 
         if (email && password) {
+            
 
             const auth = getAuth();
 
