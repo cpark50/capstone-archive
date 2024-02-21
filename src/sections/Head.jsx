@@ -11,6 +11,7 @@ export const Head = () => {
 
   const [seen, setSeen] = useState(false)
   let nav = "/login"
+  let logout = "/logout"
 
   const { currentUser, permissionLevel, accessLevel } = useContext(AuthContext)
   if (permissionLevel !== null) {
@@ -46,6 +47,11 @@ export const Head = () => {
                 <Link to={nav}>
                   <button className=" border-2 border-slate-800 text-slate-800 p-2 rounded-md m-4 hover:text-white hover:bg-slate-900 text-lg duration-300 relative top-0 hover:top-2">
                     Login
+                  </button>
+                </Link>
+                <Link to={logout}>
+                  <button className=" border-2 border-slate-800 text-slate-800 p-2 rounded-md m-4 hover:text-white hover:bg-slate-900 text-lg duration-300 relative top-0 hover:top-2">
+                    Logout
                   </button>
                 </Link>
               </div>

@@ -135,30 +135,31 @@
 
 /* Role */
 .role {
-  position: absolute;
-  left: 34.99%;
-  right: 58.77%;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  color: #000000;
-}
-
-/* Department */
-.department {
-  position: absolute;
-  left: 44.31%;
-  right: 44.31%;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  color: #000000;
-}
+   position: absolute;
+   left: 34.99%;
+   right: 58.77%;
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 20px;
+   line-height: 24px;
+   display: flex;
+   align-items: center;
+   color: #000000;
+ }
+ 
+ /* Department */
+ .department {
+   position: absolute;
+   left: 44.31%;
+   right: 44.31%;
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 20px;
+   line-height: 24px;
+   display: flex;
+   align-items: center;
+   color: #000000;
+ }
+ 

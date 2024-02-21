@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import ProjectView from "./ProjectView";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../context/AuthContext";
 import './login-styles.css'; 
@@ -30,13 +31,10 @@ export const Login = () => {
     const { dispatch } = useContext(AuthContext)
 
 
-
+// It will submit the user&password to login
     const handlelogin = (e) => {
         e.preventDefault();
-        if (!email || !password) {
-            setErrorMessage("Email or password cannot be empty"); // Update error message state
-            return;
-        }
+
 
 
 
@@ -122,3 +120,9 @@ export const Login = () => {
     )
 }
 
+export const Logout = () => {
+// TODO: Navigate to ProjectView
+// TODO: Reset permissionLevel, accessLevel in AuthContext.
+// TODO: What is LOGOUT in AuthReducer???
+
+}

@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import '../pages/admin-styles.css'; 
+import '../pages/admin-styles.css';
 const VerifierPopup = () => {
     const auth = getAuth()
     const [department, setDepartment] = useState('');
@@ -46,7 +46,7 @@ const VerifierPopup = () => {
         // try statement 
         // add to auth 
         try {
-            // TODO PUT BACK 
+            // TODO PUT BACK WHEN ACTUAL IT IS A PAIN TO DELETE ACCOUNTS ADDED
             // const res = await createUserWithEmailAndPassword(
             //     auth, username, password
             // )
@@ -55,6 +55,8 @@ const VerifierPopup = () => {
                 password: password,
                 role: "verifier",
                 department: department,
+                status: true,
+                students: 0
             });
             // add to collections 
 
