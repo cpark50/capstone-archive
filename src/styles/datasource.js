@@ -1,34 +1,34 @@
 export const userColumns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID",  flex: 1 },
     {
         field: "name",
         headerName: "Email",
-        width: 230,
+        flex: 1,
     },
 
     {
         field: "password",
         headerName: "Password",
-        width: 100,
+        flex: .5,
     },
     {
         field: "role",
         headerName: "Role",
-        width: 100,
+        flex: .5,
     },
     {
         field: "department",
         headerName: "Department",
-        width: 100,
+        flex: .5,
     },
     {
         field: "students",
         headerName: "Students",
-        width: 100,
+        flex: .5,
     },
     {
         field: "status",
         headerName: "Status",
-        width: 160,
+        flex: .5,
     },
 ];

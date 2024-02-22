@@ -142,11 +142,6 @@ export const Admin = () => {
                             checkboxSelection
                         />
                     </div>
-
-
-                </div>
-                <div className="scroll-box">
-                    {/* Content here, this div will scroll if needed */}
                 </div>
             </div>
         </div>

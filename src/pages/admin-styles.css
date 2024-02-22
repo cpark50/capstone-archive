@@ -69,16 +69,13 @@
   padding: 10px;
   font-weight: bold;
   margin-bottom: 20px;
+  background: #F4F4F4;
 }
 
-
-.scroll-box {
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  height: 500px;
-  margin-left: 10px;
+.datatable {
+  width: 100%;
 }
+
 
 .welcome-text {
   position: absolute;
