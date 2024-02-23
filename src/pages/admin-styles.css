@@ -8,12 +8,19 @@
 }
 
 .pop-up {
-  /* width: 400px;
-  height: 200px;  */
-  background-color: #fff; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 400px;
+  height: 310px; 
   position: relative; 
+  border-radius: 16px;
 
+}
+
+.popup-content {
+  width: 460px;
+  height: 310px; 
+  background-color: #fff; 
+  position: relative; 
+  border-radius: 10px;
 }
 
 

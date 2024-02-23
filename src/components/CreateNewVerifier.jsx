@@ -67,11 +67,9 @@ const VerifierPopup = () => {
 
     return (
         <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
-         modal closeOnDocumentClick
->
+         modal closeOnDocumentClick>
             <div className="pop-up">
                 <h2>New Verifier</h2>
-                <div className="popup-seperate-line" />
                 <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
                     <div>
