@@ -69,9 +69,10 @@ const VerifierPopup = () => {
         <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
          modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2>New Verifier</h2>
+                <h2 className = "popup-title" > Add New Verifier</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
+                    <hr className="divider" />
                     <div>
                         <button onClick={generateUser}>Generate User</button>
                     </div>
