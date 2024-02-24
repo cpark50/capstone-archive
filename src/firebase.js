@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { getAuth } from "firebase/auth";
+import { getAuth, deleteUser as deleteFirebaseUser } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,9 +21,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
+export const auth = getAuth(app);
 // const analytics = getAnalytics(app);
 export const firestore = getFirestore(app);
 export const storage = getStorage(app);
 export const apiKey = firebaseConfig.apiKey;
 
+export const deleteUserAuth = async (id) => {
+  try {
+      await deleteFirebaseUser(auth.currentUser); // Pass auth.currentUser as argument
+      console.log("User deleted from Firebase Authentication");
+  } catch (error) {
+      console.error("Error deleting user from Firebase Authentication:", error);
+      throw error;
+  }
+};

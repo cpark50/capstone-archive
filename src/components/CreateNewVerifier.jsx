@@ -38,18 +38,17 @@ const VerifierPopup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // for loop to add people
-        // for the number of users generate random account name 
-        // random password
-        generateUser()
-        generatePassword()
-        // try statement 
-        // add to auth 
+    
         try {
-            // TODO PUT BACK WHEN ACTUAL IT IS A PAIN TO DELETE ACCOUNTS ADDED
-            // const res = await createUserWithEmailAndPassword(
-            //     auth, username, password
-            // )
+            // Generate random username and password
+            generateUser();
+            generatePassword();
+    
+            // Create user in Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, username, password);
+            const user = userCredential.user;
+    
+            // Add user details to Firestore
             await addDoc(collection(firestore, "users"), {
                 name: username,
                 password: password,
@@ -58,12 +57,16 @@ const VerifierPopup = () => {
                 status: true,
                 students: 0
             });
-            // add to collections 
-
+    
+            // Reset form fields after successful account creation
+            setDepartment('');
+            setNumber('');
+    
         } catch (error) {
             console.log(error)
         }
     };
+    
 
     return (
         <Popup trigger={<button className='add-verifier'>Add Verifier</button>} modal closeOnDocumentClick>

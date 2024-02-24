@@ -4,7 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import "reactjs-popup/dist/index.css"; // Import the CSS file
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-
+import EditUserPopup from '../components/EditUserPopup.jsx';
 import VerifierPopup from "../components/CreateNewVerifier.jsx"
 import {
     collection,
@@ -14,12 +14,13 @@ import {
     doc,
     onSnapshot
 } from "@firebase/firestore";
-import { firestore } from "../firebase.js";
+import { firestore, deleteUserAuth } from "../firebase.js";
 import { userColumns, userRows } from "../styles/datasource.js";
 
 
 export const Admin = () => {
     const [data, setData] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     useEffect(() => {
         const unsub = onSnapshot(
@@ -42,38 +43,61 @@ export const Admin = () => {
     }, []);
 
     // probably can be exported to verifier, similiar functionality with id deletion
+    // TODOS: 
+    // 1: Ask for confirmation, DONE
+    // 2: Delete user from firebase, DONE
     const handleDelete = async (id) => {
-        // firebase deletion of users
-        // TODO ADD SECOND CHECK ON DELETION FOR SINGLE USERS AND MULTI USER SELECT
-        // TODO DELETE THE ASSOCIATED LOGIN ACCOUNT ASWELL 
         try {
-            await deleteDoc(doc(firestore, "users", id));
-            setData(data.filter((item) => item.id !== id));
+            const confirmation = window.confirm("Are you sure you want to delete this user?");
+            if (confirmation) {
+                console.log("Deleting user from Firestore:", id);
+                await deleteDoc(doc(firestore, "users", id));
+                
+                console.log("Deleting user from Firebase Authentication:", id);
+                await deleteUserAuth(id); // Calling deleteUserAuth function to delete user from Firebase Authentication
+                
+                setData(data.filter((item) => item.id !== id));
+                console.log("User successfully deleted:", id);
+            }
         } catch (err) {
-            console.log(err);
+            console.log("Error deleting user:", err);
+        }
+    };
+    
+
+    const handleEdit = (id) => {
+        const userToEdit = data.find(user => user.id === id);
+        setSelectedUser(userToEdit);
+        // Instead of rendering the popup conditionally in the return statement,
+        // you can directly return it here based on the selected user
+        return (
+            <EditUserPopup
+                user={userToEdit}
+                onSave={handleSaveEdit}
+                onClose={handleCloseEdit}
+            />
+        );
+    };
+
+    const handleSaveEdit = async (editedUser) => {
+        try {
+            // Update Firestore document with edited user data
+            await updateDoc(doc(firestore, "users", editedUser.id), editedUser);
+            console.log("User updated successfully:", editedUser);
+            // Close the popup
+            setSelectedUser(null);
+        } catch (error) {
+            console.log("Error updating user:", error);
         }
     };
 
-    // probably can be exported to verifier
-
-    const handleEdit = async (id) => {
-        // firebase editing of both the FIRESTORE for stored user information and FIREBASE AUTH for valid login
-
-        // 1. set default params
-        // 2. Make changes to params in external popup window
-        // 3. Set variables in firestore to those params
-        try {
-            // TODO ADD POPUP FOR THE EDITING OF POTENTIALLY PASSWORDS, EMAILS, DEPARTMENT, ETC
-            await updateDoc(doc(firestore, "users", id), { name: "edittest@verifier.com" });
-            console.log("name changes")
-        } catch (err) {
-            console.log(err);
-        }
+    const handleCloseEdit = () => {
+        setSelectedUser(null);
     };
+
 
     // probably can be exported to verifier
     const actionColumn = [
-        // Any actions regarding each user should go here 
         {
             field: "action",
             headerName: "Action",
@@ -81,27 +105,20 @@ export const Admin = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        {/* <Link to="/users/test" style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link> */}
-                        <div
-                            className="editButton"
-                            onClick={() => handleEdit(params.row.id)}
-                        >
-                            Edit
-                        </div>
+                        {/* Call handleEdit to render the EditUserPopup */}
+                        {handleEdit(params.row.id)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
                         >
                             Delete
                         </div>
-
                     </div>
                 );
             },
         },
     ];
+    
 
 
     return (
