@@ -12,6 +12,9 @@ const EditUserPopup = ({ user, onSave, onClose }) => {
         const newValue = type === 'checkbox' ? checked : value;
         setEditedUser({ ...editedUser, [name]: newValue });
     };
+        
+    // TODO: HandleSave should also change the info of the user's Email and Password on authentication side, I am working on this.
+
 
     const handleSave = async () => {
         await onSave(editedUser);
