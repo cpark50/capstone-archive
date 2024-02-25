@@ -74,10 +74,12 @@ const VerifierPopup = () => {
                     {/* Call on generate users button */}
                     <hr className="divider" />
                     <div>
-                        <button onClick={generateUser}>Generate User</button>
+                        <span class="generate-user-text">Generate User</span>
+                        <button class="generate-user-btn" onClick={generateUser}>Generate User</button>
                     </div>
                     <div>
-                        <button onClick={generatePassword}>Generate Password</button>
+                        <span class="generate-passsword-text">Generate Password</span>
+                        <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
                         <label htmlFor="department">Department: </label>
@@ -103,7 +105,7 @@ const VerifierPopup = () => {
                     </div>
 
 
-                    <button type="submit">Create Verifier</button>
+                    <button type="submit" class="generate-verifier-btn">Create Verifier</button>
                 </form>
                 <button type="submit">Close</button>
             </div>

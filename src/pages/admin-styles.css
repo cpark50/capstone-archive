@@ -47,9 +47,99 @@ align-items: center;
 
 color: #000000;
 
+}
 
+.generate-user-text {
+  margin-right: 10px; 
+  vertical-align: middle; /* Align the text vertically with the button */
+}
+
+
+.generate-user-btn {
+  padding: 10px 20px; 
+  background-color: #0064A4;
+  color: white;
+  border: none; 
+  border-radius: 5px; 
+  font-size: 15px; 
+  cursor: pointer; 
+  outline: none; 
+
+  /* Adjust the button's position */
+  position: absolute;
+  top: 50px; 
+  right: 20px;
 
 }
+
+.generate-user-btn:hover {
+  background-color: #00b339; 
+}
+
+.generate-user-btn:active {
+  background-color: #004080; 
+  transform: translateY(2px);
+}
+
+.generate-password-text {
+  margin-right: 10px; 
+  vertical-align: middle; /* Align the text vertically with the button */
+}
+
+
+
+.generate-password-btn {
+  padding: 10px 20px; 
+  background-color: #0064A4;
+  color: white;
+  border: none; 
+  border-radius: 5px; 
+  font-size: 15px; 
+  cursor: pointer; 
+  outline: none; 
+
+  /* Adjust the button's position */
+  position: absolute;
+  top: 100px; 
+  right: 20px;
+
+}
+
+.generate-password-btn:hover {
+  background-color: #00b339; 
+}
+
+.generate-password-btn:active {
+  background-color: #004080; 
+  transform: translateY(2px);
+}
+
+.generate-verifier-btn {
+  padding: 10px 20px; 
+  background-color: #0064A4;
+  color: white;
+  border: none; 
+  border-radius: 5px; 
+  font-size: 15px; 
+  cursor: pointer; 
+  outline: none; 
+
+  /* Adjust the button's position */
+  position: absolute;
+  top: 150px; 
+  right: 20px;
+
+}
+
+.generate-verifier-btn:hover {
+  background-color: #00b339; 
+}
+
+.generate-verifier-btn:active {
+  background-color: #004080; 
+  transform: translateY(2px);
+}
+
 
 .dropdown-titles {
   display: flex;
