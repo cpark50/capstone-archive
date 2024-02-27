@@ -355,3 +355,61 @@ input[type="number"]::placeholder {
    color: #000000;
  }
  
+ .editButton{
+  position: relative;
+  left: -10px; /* Move button to the right */
+  top: 13px;
+
+  background: #1EAF24;
+  border: 3px solid rgba(109, 116, 122, 0.278431);
+  border-radius: 8px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 13px;
+  line-height: 24px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  width: 50px;
+ }
+
+ .editButton:hover {
+  background-color: #27632a; 
+}
+
+.editButton:active {
+  background-color: #13663b; 
+  transform: translateY(2px);
+}
+
+
+ .deleteButton{
+  position: relative;
+  top: -13px; /* Move button down */
+  left: 50px; /* Move button to the right */
+  background: #DE1313;
+  border: 3px solid rgba(109, 116, 122, 0.278431);
+  border-radius: 8px;
+  width: 50px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 13px;
+  line-height: 24px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  
+ }
+
+ .deleteButton:hover {
+  background-color: #E57373; 
+}
+
+.deleteButton:active {
+  background-color: #B71C1C; 
+  transform: translateY(2px); 
+}
