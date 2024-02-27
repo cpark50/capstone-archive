@@ -99,7 +99,7 @@ const VerifierPopup = () => {
                         <hr className="divider" />
                     </div>
                     <div>
-                        <label htmlFor="number">Number: </label>
+                        <label htmlFor="number" className = "admin-page-label" >Number: </label>
                         <input
                             type="number"
                             id="number"
