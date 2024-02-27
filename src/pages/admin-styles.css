@@ -49,9 +49,16 @@ color: #000000;
 
 }
 
-.generate-user-text {
+.generate-user-text .divider{
   margin-right: 10px; 
   vertical-align: middle; /* Align the text vertically with the button */
+  /* divider */
+  border: none;
+  height: 1px;
+  background-color: #cccccc;
+  margin: 20px 1 ; 
+  width: 100%; 
+  
 }
 
 
@@ -126,7 +133,7 @@ color: #000000;
 
   /* Adjust the button's position */
   position: absolute;
-  top: 150px; 
+  top: 250px; 
   right: 20px;
 
 }
@@ -140,6 +147,20 @@ color: #000000;
   transform: translateY(2px);
 }
 
+#department {
+  padding: 8px 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  background-color: #f9f9f9; 
+  font-size: 16px; 
+  color: #333;
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  appearance: none; 
+  cursor: pointer; 
+  position: absolute;
+  right: 20px;
+}
 
 .dropdown-titles {
   display: flex;

@@ -75,14 +75,17 @@ const VerifierPopup = () => {
                     <hr className="divider" />
                     <div>
                         <span class="generate-user-text">Generate User</span>
+                        <hr className="divider" />
                         <button class="generate-user-btn" onClick={generateUser}>Generate User</button>
                     </div>
                     <div>
                         <span class="generate-passsword-text">Generate Password</span>
+                        <hr className="divider" />
                         <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
                         <label htmlFor="department">Department: </label>
+                
                         <select
                             id="department"
                             value={department}
@@ -93,6 +96,7 @@ const VerifierPopup = () => {
                             <option value="Engineering">Engineering</option>
                             <option value="Informatics">Informatics</option>
                         </select>
+                        <hr className="divider" />
                     </div>
                     <div>
                         <label htmlFor="number">Number: </label>
