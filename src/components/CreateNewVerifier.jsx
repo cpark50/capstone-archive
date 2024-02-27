@@ -105,13 +105,16 @@ const VerifierPopup = () => {
                             id="number"
                             value={number}
                             onChange={(e) => setNumber(e.target.value)}
+                            placeholder="Enter a number"
                         />
+                        <hr className="divider" />
+
                     </div>
 
-
+                    <span class="create-verifier-text">Create Verifier</span>
                     <button type="submit" class="generate-verifier-btn">Create Verifier</button>
                 </form>
-                <button type="submit">Close</button>
+                {/* <button type="submit">Close</button> */}
             </div>
         </Popup>
     );

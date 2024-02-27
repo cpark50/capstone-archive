@@ -23,7 +23,7 @@
 
 .popup-content {
   width: 533px;
-  height: 300px; 
+  height: 350px; 
   background-color: #fff; 
   position: relative; 
   border-radius: 10px;
@@ -40,7 +40,7 @@ top: 3px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 800;
-font-size: 14px;
+font-size: 18px;
 line-height: 17px;
 display: flex;
 align-items: center;
@@ -63,7 +63,7 @@ color: #000000;
 
 
 .generate-user-btn {
-  padding: 10px 20px; 
+  padding: 5px 30px; 
   background-color: #0064A4;
   color: white;
   border: none; 
@@ -96,7 +96,7 @@ color: #000000;
 
 
 .generate-password-btn {
-  padding: 10px 20px; 
+  padding: 5px 13px; 
   background-color: #0064A4;
   color: white;
   border: none; 
@@ -107,7 +107,7 @@ color: #000000;
 
   /* Adjust the button's position */
   position: absolute;
-  top: 100px; 
+  top: 110px; 
   right: 20px;
 
 }
@@ -121,8 +121,14 @@ color: #000000;
   transform: translateY(2px);
 }
 
+.create-verifier-text {
+  margin-right: 10px; 
+  vertical-align: middle; /* Align the text vertically with the button */
+}
+
+
 .generate-verifier-btn {
-  padding: 10px 20px; 
+  padding: 5px 30px; 
   background-color: #0064A4;
   color: white;
   border: none; 
@@ -133,7 +139,7 @@ color: #000000;
 
   /* Adjust the button's position */
   position: absolute;
-  top: 250px; 
+  top: 295px; 
   right: 20px;
 
 }
@@ -148,7 +154,7 @@ color: #000000;
 }
 
 #department {
-  padding: 8px 12px; 
+  padding: 5px 11px; 
   border: 1px solid #ccc; 
   border-radius: 4px;
   background-color: #f9f9f9; 
@@ -160,7 +166,38 @@ color: #000000;
   cursor: pointer; 
   position: absolute;
   right: 20px;
+  top: 165px;
 }
+
+label {
+  font-size: 16px; 
+  color: #333; 
+  margin-right: 277px; 
+}
+
+input[type="number"] {
+  padding: 10px 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  font-size: 14px; 
+  width: 160px; 
+  height: 32.5px;
+}
+
+input[type="number"]:focus {
+  border-color: #0064A4; /* Change the border color when the input box is focused */
+  outline: none; /* Remove the default focus outline from browsers */
+}
+
+input[type="number"]:hover {
+  border-color: #888; /* Change the border color when the mouse hovers over the input box */
+}
+
+input[type="number"]::placeholder {
+  font-size: 15px; 
+  color: #999; 
+}
+
 
 .dropdown-titles {
   display: flex;
