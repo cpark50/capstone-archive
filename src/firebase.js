@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { getAuth, deleteUser as deleteFirebaseUser } from "firebase/auth";
+import { getAuth, updateEmail, updatePassword , deleteUser as deleteFirebaseUser } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -34,5 +34,25 @@ export const deleteUserAuth = async (id) => {
   } catch (error) {
       console.error("Error deleting user from Firebase Authentication:", error);
       throw error;
+  }
+};
+
+export const updateUserEmail = async (id, newEmail) => {
+  try {
+    await updateEmail(auth.currentUser, newEmail);
+    console.log("Email updated successfully");
+  } catch (error) {
+    console.error("Error updating email:", error);
+    throw error;
+  }
+};
+
+export const updateUserPassword = async (id, newPassword) => {
+  try {
+    await updatePassword(auth.currentUser, newPassword);
+    console.log("Email updated successfully");
+  } catch (error) {
+    console.error("Error updating email:", error);
+    throw error;
   }
 };

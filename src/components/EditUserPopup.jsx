@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import { updateDoc, doc } from 'firebase/firestore';
-import { firestore } from "../firebase";
+import { firestore, updateUserEmail, updateUserPassword } from "../firebase";
 import '../pages/admin-styles.css';
 
-const EditUserPopup = ({ user, onSave, onClose }) => {
+const EditUserPopup = ({ id, user, onSave, onClose }) => {
     const [editedUser, setEditedUser] = useState(user);
 
     const handleChange = (e) => {
@@ -17,6 +17,8 @@ const EditUserPopup = ({ user, onSave, onClose }) => {
 
 
     const handleSave = async () => {
+        updateUserEmail(id, editedUser.name);
+        // updateUserPassword(id, editedUser.Password);
         await onSave(editedUser);
         onClose(); // Close the popup after saving
     };
