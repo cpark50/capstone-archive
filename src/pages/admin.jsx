@@ -72,6 +72,7 @@ export const Admin = () => {
         // you can directly return it here based on the selected user
         return (
             <EditUserPopup
+                id = {id}
                 user={userToEdit}
                 onSave={handleSaveEdit}
                 onClose={handleCloseEdit}
