@@ -57,15 +57,13 @@ const VerifierPopup = () => {
                 status: true,
                 students: 0
             });
-    
-            // Reset form fields after successful account creation
-            setDepartment('');
-            setNumber('');
-    
-       } catch (error) {
+            // add to collections 
+
+        } catch (error) {
             console.log(error)
         }
     };
+    
 
     return (
         <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
