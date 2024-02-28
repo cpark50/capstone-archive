@@ -352,7 +352,7 @@ input[type="number"]::placeholder {
    color: #000000;
  }
  
- .editButton{
+ .edit-user{
   position: relative;
   left: -10px; /* Move button to the right */
   top: 13px;
@@ -372,11 +372,11 @@ input[type="number"]::placeholder {
   width: 50px;
  }
 
- .editButton:hover {
+ .edit-user:hover {
   background-color: #27632a; 
 }
 
-.editButton:active {
+.edit-user:active {
   background-color: #13663b; 
   transform: translateY(2px);
 }
