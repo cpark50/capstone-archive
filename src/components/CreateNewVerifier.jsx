@@ -69,7 +69,7 @@ const VerifierPopup = () => {
         <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
          modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2 className = "popup-title" > Add New Verifier</h2>
+                <h2 className = "popup-add" > Add New Verifier</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
                     <hr className="divider" />
@@ -84,10 +84,10 @@ const VerifierPopup = () => {
                         <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
-                        <label htmlFor="department">Department: </label>
+                        <label htmlFor="department" >Department: </label>
                 
                         <select
-                            id="department"
+                            className = "admin-department-add"
                             value={department}
                             onChange={(e) => setDepartment(e.target.value)}
                         >

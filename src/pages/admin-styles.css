@@ -29,7 +29,7 @@
   border-radius: 10px;
 }
 
-.popup-title {
+.popup-add {
 /* Adding New Verifier */
 position: relative;
 width: 155px;
@@ -153,7 +153,7 @@ color: #000000;
   transform: translateY(2px);
 }
 
-#department {
+.admin-department-add {
   padding: 5px 11px; 
   border: 1px solid #ccc; 
   border-radius: 4px;
@@ -410,3 +410,25 @@ input[type="number"]::placeholder {
   background-color: #B71C1C; 
   transform: translateY(2px); 
 }
+
+/* --------------------------------Edit interface---------------------------------- */
+
+.popup-edit {
+  /* Adding New Verifier */
+  position: relative;
+  width: 155px;
+  height: 18px;
+  left: 6px;
+  top: 3px;
+  
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  
+  color: #000000;
+  
+  }
