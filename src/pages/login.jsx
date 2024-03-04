@@ -13,14 +13,19 @@ export const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(""); // Add a state to store error messages
     const navigate = useNavigate();
+
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
+        setErrorMessage(""); // Clear error message when user starts typing
+
     };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
+        setErrorMessage(""); // Clear error message when user starts typing
     };
 
     const { dispatch } = useContext(AuthContext)
@@ -29,8 +34,16 @@ export const Login = () => {
 // It will submit the user&password to login
     const handlelogin = (e) => {
         e.preventDefault();
+        if (!email || !password) {
+            setErrorMessage("Email or password cannot be empty"); // Update error message state
+            return;
+        }
+
+
+
 
         if (email && password) {
+            
 
             const auth = getAuth();
 
@@ -69,7 +82,6 @@ export const Login = () => {
                     console.error(`Login failed: ${errorCode} ${errorMessage}`);
                 });
         } else {
-            // TODO: make changes to the UI for these console logs 
             console.log("Email or password cannot be empty")
         }
 
@@ -105,6 +117,7 @@ export const Login = () => {
                     onChange={handlePasswordChange}
                 />
             </div>
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
             <button id="LoginButton" onClick={handlelogin}>SIGN IN</button>
         </div >
 

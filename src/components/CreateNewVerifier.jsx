@@ -38,18 +38,17 @@ const VerifierPopup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // for loop to add people
-        // for the number of users generate random account name 
-        // random password
-        generateUser()
-        generatePassword()
-        // try statement 
-        // add to auth 
+    
         try {
-            // TODO PUT BACK WHEN ACTUAL IT IS A PAIN TO DELETE ACCOUNTS ADDED
-            // const res = await createUserWithEmailAndPassword(
-            //     auth, username, password
-            // )
+            // Generate random username and password
+            generateUser();
+            generatePassword();
+    
+            // Create user in Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, username, password);
+            const user = userCredential.user;
+    
+            // Add user details to Firestore
             await addDoc(collection(firestore, "users"), {
                 name: username,
                 password: password,
@@ -64,21 +63,29 @@ const VerifierPopup = () => {
             console.log(error)
         }
     };
+    
 
     return (
-        <Popup trigger={<button className='add-verifier'>Add Verifier</button>} modal closeOnDocumentClick>
+        <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
+         modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2>New Verifier</h2>
+                <h2 className = "popup-title" > Add New Verifier</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
+                    <hr className="divider" />
                     <div>
-                        <button onClick={generateUser}>Generate User</button>
+                        <span class="generate-user-text">Generate User</span>
+                        <hr className="divider" />
+                        <button class="generate-user-btn" onClick={generateUser}>Generate User</button>
                     </div>
                     <div>
-                        <button onClick={generatePassword}>Generate Password</button>
+                        <span class="generate-passsword-text">Generate Password</span>
+                        <hr className="divider" />
+                        <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
                         <label htmlFor="department">Department: </label>
+                
                         <select
                             id="department"
                             value={department}
@@ -89,21 +96,25 @@ const VerifierPopup = () => {
                             <option value="Engineering">Engineering</option>
                             <option value="Informatics">Informatics</option>
                         </select>
+                        <hr className="divider" />
                     </div>
                     <div>
-                        <label htmlFor="number">Number: </label>
+                        <label htmlFor="number" className = "admin-page-label" >Number: </label>
                         <input
                             type="number"
                             id="number"
                             value={number}
                             onChange={(e) => setNumber(e.target.value)}
+                            placeholder="Enter a number"
                         />
+                        <hr className="divider" />
+
                     </div>
 
-
-                    <button type="submit">Create Verifier</button>
+                    <span class="create-verifier-text">Create Verifier</span>
+                    <button type="submit" class="generate-verifier-btn">Create Verifier</button>
                 </form>
-                <button type="submit">Close</button>
+                {/* <button type="submit">Close</button> */}
             </div>
         </Popup>
     );
