@@ -23,11 +23,11 @@ const AuthReducer = (state, action) => {
             };
         }
         case "LOGOUT": {
-            console.log("SHOULD NO BE CALLED AT ALL ")
 
             return {
-                currentUser: null,
-                permissionLevel: 0
+                currentUser: null, // FOR SOME REASON THIS IS ALWAYS GOING TO BE UNDEFINED AHHHHHHHH
+                permissionLevel: null,
+                accessLevel: null
             }
         }
         default:
