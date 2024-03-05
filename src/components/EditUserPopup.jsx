@@ -28,7 +28,7 @@ const EditUserPopup = ({ id, user, onSave, onClose }) => {
     };
 
     return (
-        <Popup trigger={<button className='edit-user'>Edit</button>} modal closeOnDocumentClick>
+        <Popup trigger={<button className='editButton'>Edit</button>} modal closeOnDocumentClick>
             <div className="pop-up">
                 <h2 className='popup-edit'>Edit User</h2>
                 <form onSubmit={handleSave}>
