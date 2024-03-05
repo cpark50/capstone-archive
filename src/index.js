@@ -16,6 +16,7 @@ import { Head } from './sections/Head';
 import { VerifyProjects } from './pages/VerifyProjects';
 import { ThankYou } from './pages/ThankYou';
 import { Login } from './pages/login';
+import { Logout } from './pages/login';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Admin } from './pages/admin';
 import { Student } from './pages/student';
@@ -74,6 +75,10 @@ const IndexWithRouter = () => {
     {
       path: "/login",
       element: <Login></Login>,
+    },
+    {
+      path: "/logout",
+      element: <Logout></Logout>,
     }
   ]);
 
