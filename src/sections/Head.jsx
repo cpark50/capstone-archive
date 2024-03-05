@@ -11,7 +11,7 @@ export const Head = () => {
 
   const [seen, setSeen] = useState(false)
   let nav = "/login"
-  let logout = "/logout"
+  // let logout = "/logout"
 
   const { currentUser, permissionLevel, accessLevel } = useContext(AuthContext)
   if (permissionLevel !== null) {
@@ -25,9 +25,18 @@ export const Head = () => {
 
   }
 
+  const { dispatch } = useContext(AuthContext)
+
   function togglePop() {
     setSeen(!seen);
   };
+
+  function logout() {
+    dispatch({ type: "LOGOUT" })
+    return <div>
+      <link rel="stylesheet" href="/" />
+    </div>
+  }
 
 
   return (
@@ -49,11 +58,11 @@ export const Head = () => {
                     Login
                   </button>
                 </Link>
-                <Link to={logout}>
-                  <button className=" border-2 border-slate-800 text-slate-800 p-2 rounded-md m-4 hover:text-white hover:bg-slate-900 text-lg duration-300 relative top-0 hover:top-2">
-                    Logout
-                  </button>
-                </Link>
+                {/* <Link to={logout}> */}
+                <button className=" border-2 border-slate-800 text-slate-800 p-2 rounded-md m-4 hover:text-white hover:bg-slate-900 text-lg duration-300 relative top-0 hover:top-2" onClick={logout}>
+                  Logout
+                </button>
+                {/* </Link> */}
               </div>
             </a>
           </div>

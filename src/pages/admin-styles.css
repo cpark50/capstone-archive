@@ -1,139 +1,328 @@
 .container {
-   width: 600px;
-   margin: 0 auto;
-   position: absolute;
-   top: 100px;
-   left: 50%;
-   transform: translateX(-50%);
- }
+  width: 600px;
+  margin: 0 auto;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
- .dropdown-titles {
-   display: flex;
+.pop-up .divider {
+  width: 533px;
+  height: 300px; 
+  position: relative; 
+  border-radius: 16px;
+  /* divider */
+  border: none;
+  height: 1px;
+  background-color: #cccccc;
+  margin: 20px 1 ; 
+  width: 100%; 
+
+}
+
+.popup-content {
+  width: 533px;
+  height: 350px; 
+  background-color: #fff; 
+  position: relative; 
+  border-radius: 10px;
+}
+
+.popup-title {
+/* Adding New Verifier */
+position: relative;
+width: 155px;
+height: 18px;
+left: 6px;
+top: 3px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 800;
+font-size: 18px;
+line-height: 17px;
+display: flex;
+align-items: center;
+
+color: #000000;
+
+}
+
+.generate-user-text .divider{
+  margin-right: 10px; 
+  vertical-align: middle; /* Align the text vertically with the button */
+  /* divider */
+  border: none;
+  height: 1px;
+  background-color: #cccccc;
+  margin: 20px 1 ; 
+  width: 100%; 
+  
+}
+
+
+.generate-user-btn {
+  padding: 5px 30px; 
+  background-color: #0064A4;
+  color: white;
+  border: none; 
+  border-radius: 5px; 
+  font-size: 15px; 
+  cursor: pointer; 
+  outline: none; 
+
+  /* Adjust the button's position */
+  position: absolute;
+  top: 50px; 
+  right: 20px;
+
+}
+
+.generate-user-btn:hover {
+  background-color: #00b339; 
+}
+
+.generate-user-btn:active {
+  background-color: #004080; 
+  transform: translateY(2px);
+}
+
+.generate-password-text {
+  margin-right: 10px; 
+  vertical-align: middle; /* Align the text vertically with the button */
+}
+
+
+
+.generate-password-btn {
+  padding: 5px 13px; 
+  background-color: #0064A4;
+  color: white;
+  border: none; 
+  border-radius: 5px; 
+  font-size: 15px; 
+  cursor: pointer; 
+  outline: none; 
+
+  /* Adjust the button's position */
+  position: absolute;
+  top: 110px; 
+  right: 20px;
+
+}
+
+.generate-password-btn:hover {
+  background-color: #00b339; 
+}
+
+.generate-password-btn:active {
+  background-color: #004080; 
+  transform: translateY(2px);
+}
+
+.create-verifier-text {
+  margin-right: 10px; 
+  vertical-align: middle; /* Align the text vertically with the button */
+}
+
+
+.generate-verifier-btn {
+  padding: 5px 30px; 
+  background-color: #0064A4;
+  color: white;
+  border: none; 
+  border-radius: 5px; 
+  font-size: 15px; 
+  cursor: pointer; 
+  outline: none; 
+
+  /* Adjust the button's position */
+  position: absolute;
+  top: 295px; 
+  right: 20px;
+
+}
+
+.generate-verifier-btn:hover {
+  background-color: #00b339; 
+}
+
+.generate-verifier-btn:active {
+  background-color: #004080; 
+  transform: translateY(2px);
+}
+
+#department {
+  padding: 5px 11px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  background-color: #f9f9f9; 
+  font-size: 16px; 
+  color: #333;
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  appearance: none; 
+  cursor: pointer; 
+  position: absolute;
+  right: 20px;
+  top: 165px;
+}
+
+.admin-page-label {
+  font-size: 16px; 
+  color: #333; 
+  margin-right: 277px; 
+}
+
+input[type="number"] {
+  padding: 10px 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  font-size: 14px; 
+  width: 160px; 
+  height: 32.5px;
+}
+
+input[type="number"]:focus {
+  border-color: #0064A4; /* Change the border color when the input box is focused */
+  outline: none; /* Remove the default focus outline from browsers */
+}
+
+input[type="number"]:hover {
+  border-color: #888; /* Change the border color when the mouse hovers over the input box */
+}
+
+input[type="number"]::placeholder {
+  font-size: 15px; 
+  color: #999; 
+}
+
+
+.dropdown-titles {
+  display: flex;
 }
 
 .dropdown-title {
-   margin-left: 10px;
+  margin-left: 10px;
 }
 
 .dropdown-title2 {
-   margin-left: 78px;
+  margin-left: 78px;
 }
 
- .header {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
- }
- 
- .dropdowns {
-   display: flex;
- }
- 
- .dropdown {
-   margin-right: 10px;
-   left: 10px;
-   width: 100px;
-   height: 35px;
- }
- 
- .buttons button {
-   position: relative;
-   display: inline-block;
-   width: 115px;
-   height: 42px;
-   margin-right: 15px;
-   margin-bottom: 10px;
-   background: #0064A4;
-   border-radius: 16px;
-   border: 1px solid rgba(51, 51, 51, 0.2);
-   font-family: 'Inter';
-   font-style: normal;
-   font-weight: 900;
-   font-size: 12px;
-   line-height: 15px;
-   color: #FFFFFF;
-   cursor: pointer;
-   transition: background 0.3s ease;
- }
- 
- .buttons button:hover {
-   background: #005183;
- }
- 
- .buttons button:active {
-   background: #003a5c;
- }
- 
- .bar {
-   display: flex;
-   padding: 10px;
-   font-weight: bold;
-   margin-bottom: 20px;
- }
- 
- 
- .scroll-box {
-   overflow-y: auto;
-   border: 1px solid #ccc;
-   padding: 10px;
-   height: 500px;
-   margin-left: 10px;
- }
- 
- .welcome-text {
-   position: absolute;
-   width: 395px;
-   height: 55px;
-   left: -75px;
-   top: -65px;
-   font-family: 'Inter';
-   font-style: normal;
-   font-weight: 900;
-   font-size: 32px;
-   line-height: 39px;
-   text-align: center;
-   color: #317EAC;
- }
- 
- .main-background {
-   position: absolute;
-   width: 90%;
-   height: 649px;
-   left: 109px;
-   top: 266px;
-   background: #F4F4F4;
- }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
- .email {
-   position: absolute;
-   left: 1.88%;
-   right: 89.31%;
-   font-family: 'Inter';
-   font-style: normal;
-   font-weight: 700;
-   font-size: 20px;
-   line-height: 24px;
-   display: flex;
-   align-items: center;
-   color: #000000;
- }
+.dropdowns {
+  display: flex;
+}
 
- /* Password */
+.dropdown {
+  margin-right: 10px;
+  left: 10px;
+  width: 100px;
+  height: 35px;
+}
+
+.buttons button {
+  position: relative;
+  display: inline-block;
+  width: 115px;
+  height: 42px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  background: #0064A4;
+  border-radius: 16px;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.buttons button:hover {
+  background: #005183;
+}
+
+.buttons button:active {
+  background: #003a5c;
+}
+
+.bar {
+  display: flex;
+  padding: 10px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background: #F4F4F4;
+}
+
+.datatable {
+  width: 100%;
+}
+
+
+.welcome-text {
+  position: absolute;
+  width: 395px;
+  height: 55px;
+  left: -75px;
+  top: -65px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 39px;
+  text-align: center;
+  color: #317EAC;
+}
+
+.main-background {
+  position: absolute;
+  width: 90%;
+  height: 649px;
+  left: 109px;
+  top: 266px;
+  background: #F4F4F4;
+}
+
+.email {
+  position: absolute;
+  left: 1.88%;
+  right: 89.31%;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+/* Password */
 .password {
-   position: absolute;
-   left: 22.07%;
-   right: 66.3%;
-   font-family: 'Inter';
-   font-style: normal;
-   font-weight: 700;
-   font-size: 20px;
-   line-height: 24px;
-   display: flex;
-   align-items: center;
-   color: #000000;
- }
- 
- /* Role */
+  position: absolute;
+  left: 22.07%;
+  right: 66.3%;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+/* Role */
 .role {
    position: absolute;
    left: 34.99%;
@@ -163,3 +352,61 @@
    color: #000000;
  }
  
+ .edit-user{
+  position: relative;
+  left: -10px; /* Move button to the right */
+  top: 13px;
+
+  background: #1EAF24;
+  border: 3px solid rgba(109, 116, 122, 0.278431);
+  border-radius: 8px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 13px;
+  line-height: 24px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  width: 50px;
+ }
+
+ .edit-user:hover {
+  background-color: #27632a; 
+}
+
+.edit-user:active {
+  background-color: #13663b; 
+  transform: translateY(2px);
+}
+
+
+ .deleteButton{
+  position: relative;
+  top: -13px; /* Move button down */
+  left: 50px; /* Move button to the right */
+  background: #DE1313;
+  border: 3px solid rgba(109, 116, 122, 0.278431);
+  border-radius: 8px;
+  width: 50px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 13px;
+  line-height: 24px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  
+ }
+
+ .deleteButton:hover {
+  background-color: #E57373; 
+}
+
+.deleteButton:active {
+  background-color: #B71C1C; 
+  transform: translateY(2px); 
+}
