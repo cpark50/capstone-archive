@@ -143,7 +143,7 @@ export const Admin = () => {
                             {/* Add options for departments */}
                         </select>
                     </div>
-                    <div className="buttons">
+                    <div className="admin-buttons">
                         <VerifierPopup />
                         <button className="add-student">Add Student</button>
                         <button className="refresh">Refresh</button>

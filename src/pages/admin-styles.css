@@ -228,7 +228,7 @@ input[type="number"]::placeholder {
   height: 35px;
 }
 
-.buttons button {
+.admin-buttons button {
   position: relative;
   display: inline-block;
   width: 115px;

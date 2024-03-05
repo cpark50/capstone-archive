@@ -66,7 +66,7 @@ const VerifierPopup = () => {
     
 
     return (
-        <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
+        <Popup trigger={<button>Add Verifier</button>}
          modal closeOnDocumentClick>
             <div className="pop-up">
                 <h2 className = "popup-add" > Add New Verifier</h2>
