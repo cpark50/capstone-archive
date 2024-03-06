@@ -9,6 +9,11 @@ const AuthReducer = (state, action) => {
             };
         }
         case "PERMISSION_LEVEL": {
+            //TODO: Fetch role of the user from user database and set permission level.
+            // Database table: users, column: name
+            // 
+
+            //CURRENT LOGIC:
             let email = action.payload.email
             if (email.endsWith("student.com")) {
                 value = 0
