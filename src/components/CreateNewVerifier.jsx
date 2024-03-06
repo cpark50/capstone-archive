@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
-import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs, query } from 'firebase/firestore';
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
@@ -10,6 +10,20 @@ const VerifierPopup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [number, setNumber] = useState('');
+
+    const [details, setDetails] = useState({
+        name: "0",
+        password: "0",
+        department: "0"
+    });
+
+    const handleChange = (e) => {
+        setDetails({
+            ...details,
+            [e.target.name]: e.target.value
+
+        })
+    }
 
     const charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -38,16 +52,17 @@ const VerifierPopup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         try {
             // Generate random username and password
             generateUser();
             generatePassword();
-    
+
             // Create user in Firebase Authentication
-            const userCredential = await createUserWithEmailAndPassword(auth, username, password);
-            const user = userCredential.user;
-    
+            // TURN BACK ON LATER< OFF FOR TESTING
+            // const userCredential = await createUserWithEmailAndPassword(auth, username, password);
+            // const user = userCredential.user;
+
             // Add user details to Firestore
             await addDoc(collection(firestore, "users"), {
                 name: username,
@@ -56,20 +71,40 @@ const VerifierPopup = () => {
                 department: department,
                 status: true,
                 students: 0
+            }).then(async function (docRef) {
+                // Access the subcollection using the correct path "user" -> "docRef id"
+                // Note: firebase needs ONE document to be added to it in order to create a collection. Either need to create here and delete dummy item or other. 
+
+
+
+
+                const usersFolder = query(collection(firestore, "user"));
+                const querySnapshot = await getDocs(usersFolder);
+                const queryData = querySnapshot.docs.map((details) => ({
+                    ...details.data(),
+                    id: details.id
+                }));
+                await setDoc(doc(firestore, `users/${docRef.id}/students`, "TEMPNAME"),
+                    {
+                        name: "TEMPNAME"
+                    });
+                // TODO DELETE THE STUDENTS 
+                collection("user").document(docRef.id).collection("student").document("name").delete()
             });
-            // add to collections 
+
+            // maybe delete dummy value IF NOT do not show the value/create the collection somewhere else (ie when first student is made)
 
         } catch (error) {
             console.log(error)
         }
     };
-    
+
 
     return (
         <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
-         modal closeOnDocumentClick>
+            modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2 className = "popup-title" > Add New Verifier</h2>
+                <h2 className="popup-title" > Add New Verifier</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
                     <hr className="divider" />
@@ -85,7 +120,7 @@ const VerifierPopup = () => {
                     </div>
                     <div>
                         <label htmlFor="department">Department: </label>
-                
+
                         <select
                             id="department"
                             value={department}
@@ -99,7 +134,7 @@ const VerifierPopup = () => {
                         <hr className="divider" />
                     </div>
                     <div>
-                        <label htmlFor="number" className = "admin-page-label" >Number: </label>
+                        <label htmlFor="number" className="admin-page-label" >Number: </label>
                         <input
                             type="number"
                             id="number"
