@@ -246,6 +246,9 @@ input[type="number"]::placeholder {
   color: #FFFFFF;
   cursor: pointer;
   transition: background 0.3s ease;
+  /* background: #0064A4 url('../assets/add-icon.jpg') no-repeat center center;
+  background-size: 20px 20px; 
+  border-radius: 16px; */
 }
 
 .buttons button:hover {
