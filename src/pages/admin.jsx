@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 // import SideMenu from "../components/NavigationMenu";
-import { DataGrid } from "@mui/x-data-grid";
+// import { DataGrid } from "@mui/x-data-grid";
+
+
 import "reactjs-popup/dist/index.css"; // Import the CSS file
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -18,10 +20,24 @@ import {
 import { firestore, deleteUserAuth } from "../firebase.js";
 import { userColumns, userRows } from "../styles/datasource.js";
 
+import { AgGridReact } from "ag-grid-react";
+import { ModuleRegistry } from "ag-grid-community";
+// import { ModuleRegistry } from '@ag-grid-community';
+import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
+
+// test 
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
+
+
+
 
 export const Admin = () => {
+    ModuleRegistry.registerModules([RowGroupingModule]);
+
     const [data, setData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [collapsed, setCollapsed] = useState(false)
 
     useEffect(() => {
         const unsub = onSnapshot(
@@ -53,10 +69,10 @@ export const Admin = () => {
             if (confirmation) {
                 console.log("Deleting user from Firestore:", id);
                 await deleteDoc(doc(firestore, "users", id));
-                
+
                 console.log("Deleting user from Firebase Authentication:", id);
                 await deleteUserAuth(id); // Calling deleteUserAuth function to delete user from Firebase Authentication
-                
+
                 setData(data.filter((item) => item.id !== id));
                 console.log("User successfully deleted:", id);
             }
@@ -64,7 +80,7 @@ export const Admin = () => {
             console.log("Error deleting user:", err);
         }
     };
-    
+
 
     const handleEdit = (id) => {
         const userToEdit = data.find(user => user.id === id);
@@ -73,13 +89,14 @@ export const Admin = () => {
         // you can directly return it here based on the selected user
         return (
             <EditUserPopup
-                id = {id}
+                id={id}
                 user={userToEdit}
                 onSave={handleSaveEdit}
                 onClose={handleCloseEdit}
             />
         );
     };
+
 
     const handleSaveEdit = async (editedUser) => {
         try {
@@ -97,6 +114,13 @@ export const Admin = () => {
         setSelectedUser(null);
     };
 
+    // code to handle expansion dropdown 
+    const handleExpand = () => {
+        if (!collapsed) {
+
+        }
+
+    };
 
     // probably can be exported to verifier
     const actionColumn = [
@@ -104,24 +128,54 @@ export const Admin = () => {
             field: "action",
             headerName: "Action",
             width: 200,
-            renderCell: (params) => {
+            cellRenderer: (params) => {
                 return (
                     <div className="cellAction">
                         {/* Call handleEdit to render the EditUserPopup */}
-                        {handleEdit(params.row.id)}
+                        {/* {handleEdit(params.data.id)} */}
                         <div
                             className="deleteButton"
-                            onClick={() => handleDelete(params.row.id)}
+                            onClick={() => handleDelete(params.data.id)}
                         >
                             Delete
+                        </div>
+                        <div
+                            className="expandButton"
+                            onClick={() => setCollapsed(!collapsed)}>
+                            {handleExpand}
+                            Expand
                         </div>
                     </div>
                 );
             },
         },
     ];
-    
 
+    // const StudentDropdown = ({ value }) => {
+
+
+    // 
+
+    // const StudentDropdown = () => {
+    //     // Render a simple dropdown for each teacher's students
+    //     return (
+    //         <select>
+    //             {value.map((student, index) => (
+    //                 <option key={index}>{student}</option>
+    //             ))}
+    //         </select>
+    //     );
+    // };
+
+    // const gridOptions = {
+    //     treeData: true,
+
+    //     // other grid options ...
+    // }
+
+    const getDataPath = (data) => {
+        return data.order;
+    }
 
     return (
         <div className="main-background" id="outer-container">
@@ -133,6 +187,7 @@ export const Admin = () => {
                     <h2 className="dropdown-title2">Department</h2>
                 </div>
                 {/* End of title for dropdowns */}
+
                 <div className="header">
                     <div className="dropdowns">
                         <select className="dropdown">
@@ -150,7 +205,7 @@ export const Admin = () => {
                         <button className="refresh">Refresh</button>
                     </div>
                 </div>
-                <div className="bar">
+                {/* <div className="bar">
                     <div className="datatable">
                         <DataGrid
                             className="datagrid"
@@ -161,7 +216,24 @@ export const Admin = () => {
                             checkboxSelection
                         />
                     </div>
+                </div> */}
+
+                <div className="ag-theme-alpine" style={{ height: "400px", width: "100%" }}>
+                    <AgGridReact
+                        columnDefs={userColumns.concat(actionColumn)}
+                        rowData={data}
+                        animateRows={true}
+                        suppressMovableColumns={true}
+                        // gridOptions={gridOptions}
+                        getDataPath={getDataPath(data)}
+
+
+                    // need to access the collection, then render the data 
+                    // 1. when render the row get the collection and store in a value
+                    // 2. 
+                    />
                 </div>
+
             </div>
         </div>
     );

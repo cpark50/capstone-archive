@@ -68,6 +68,7 @@ const VerifierPopup = () => {
                 name: username,
                 password: password,
                 role: "verifier",
+                order: ["verifier"],
                 department: department,
                 status: true,
                 students: 0

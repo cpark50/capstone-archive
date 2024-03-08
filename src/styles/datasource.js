@@ -1,5 +1,5 @@
 export const userColumns = [
-    { field: "id", headerName: "ID",  flex: 1 },
+    { field: "id", headerName: "ID", flex: 1 },
     {
         field: "name",
         headerName: "Email",
@@ -15,15 +15,11 @@ export const userColumns = [
         field: "role",
         headerName: "Role",
         flex: .5,
+        rowGroup: true
     },
     {
         field: "department",
         headerName: "Department",
-        flex: .5,
-    },
-    {
-        field: "students",
-        headerName: "Students",
         flex: .5,
     },
     {
