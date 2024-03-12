@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
-import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs, query } from 'firebase/firestore';
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
@@ -11,6 +11,20 @@ const VerifierPopup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [number, setNumber] = useState('');
+
+    const [details, setDetails] = useState({
+        name: "0",
+        password: "0",
+        department: "0"
+    });
+
+    const handleChange = (e) => {
+        setDetails({
+            ...details,
+            [e.target.name]: e.target.value
+
+        })
+    }
 
     const charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -39,32 +53,65 @@ const VerifierPopup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        try {
-            // Generate random username and password
-            generateUser();
-            generatePassword();
-    
-            // Create user in Firebase Authentication
-            const userCredential = await createUserWithEmailAndPassword(auth, username, password);
-            const user = userCredential.user;
-    
-            // Add user details to Firestore
-            await addDoc(collection(firestore, "users"), {
-                name: username,
-                password: password,
-                role: "verifier",
-                department: department,
-                status: true,
-                students: 0
-            });
-            // add to collections 
+        console.log("creating")
 
-        } catch (error) {
-            console.log(error)
+        if (department != "" && username != "" && password != "") {
+            try {
+                // Generate random username and password
+                // Create user in Firebase Authentication
+                // TURN BACK ON LATER< OFF FOR TESTING
+                // const userCredential = await createUserWithEmailAndPassword(auth, username, password);
+                // const user = userCredential.user;
+
+                // Add user details to Firestore
+                await addDoc(collection(firestore, "users"), {
+                    name: username,
+                    password: password,
+                    role: "verifier",
+                    department: department,
+                    status: true,
+                    students: 0
+                }).then(async function (docRef) {
+                    // Access the subcollection using the correct path "user" -> "docRef id"
+                    // Note: firebase needs ONE document to be added to it in order to create a collection. Either need to create here and delete dummy item or other. 
+                    const usersFolder = query(collection(firestore, "user"));
+                    const querySnapshot = await getDocs(usersFolder);
+                    const queryData = querySnapshot.docs.map((details) => ({
+                        ...details.data(),
+                        id: details.id
+
+                    }));
+                    // set the associatedTAName to the ID of the verifier for reference for 
+                    await setDoc(doc(firestore, `users/${docRef.id}`), { associatedTAName: docRef.id }, { merge: true });
+
+                    await setDoc(doc(firestore, `users/${docRef.id}/students`, "STUDENTNAMEHERE"),
+                        {
+                            // generate new name in other document 
+                            name: username,
+                            associatedTAName: docRef.id,
+                            password: password,
+                            role: "student",
+                            department: department,
+                            status: true,
+                            // PUT BACK IF TESTING 
+                            // projectStatus: false,
+                            // projectID: null,
+                        });
+                    // TODO DELETE THE STUDENTS 
+                    // collection("user").document(docRef.id).collection("student").document("name").delete()
+                });
+                // maybe delete dummy value IF NOT do not show the value/create the collection somewhere else (ie when first student is made)
+
+            } catch (error) {
+                console.log(error)
+            }
+            console.log("created")
+
+        } else {
+            console.log(department, username, password)
         }
     };
-    
+
 
     return (
         <Popup trigger=  {<button style={{ position: 'relative' }}>
@@ -88,8 +135,9 @@ const VerifierPopup = () => {
                         <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
-                        <label htmlFor="department" >Department: </label>
-                
+                        <label htmlFor="department">Department: </label>
+
+
                         <select
                             className = "admin-department-add"
                             value={department}
@@ -103,7 +151,7 @@ const VerifierPopup = () => {
                         <hr className="divider" />
                     </div>
                     <div>
-                        <label htmlFor="number" className = "admin-page-label" >Number: </label>
+                        <label htmlFor="number" className="admin-page-label" >Number: </label>
                         <input
                             type="number"
                             id="number"
@@ -116,7 +164,7 @@ const VerifierPopup = () => {
                     </div>
 
                     <span class="create-verifier-text">Create Verifier</span>
-                    <button type="submit" class="generate-verifier-btn">Create Verifier</button>
+                    <button type="submit" class="generate-verifier-btn" onClick={handleSubmit}>Create Verifier</button>
                 </form>
                 {/* <button type="submit">Close</button> */}
             </div>

@@ -1,11 +1,15 @@
 export const userColumns = [
-    { field: "id", headerName: "ID",  flex: 1 },
+    { field: "id", headerName: "ID", flex: 1 },
     {
         field: "name",
         headerName: "Email",
         flex: 1,
     },
-
+    {
+        field: "associatedTAName",
+        hide: true,
+        rowGroup: true
+    },
     {
         field: "password",
         headerName: "Password",
@@ -15,6 +19,8 @@ export const userColumns = [
         field: "role",
         headerName: "Role",
         flex: .5,
+        rowGroup: true
+
     },
     {
         field: "department",
@@ -22,13 +28,13 @@ export const userColumns = [
         flex: .5,
     },
     {
-        field: "students",
-        headerName: "Students",
-        flex: .5,
-    },
-    {
         field: "status",
         headerName: "Status",
         flex: .5,
     },
+    {
+        field: "action",
+        headerName: "Action",
+        width: 200,
+    }
 ];
