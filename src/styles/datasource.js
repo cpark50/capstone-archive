@@ -5,7 +5,11 @@ export const userColumns = [
         headerName: "Email",
         flex: 1,
     },
-
+    {
+        field: "associatedTAName",
+        hide: true,
+        rowGroup: true
+    },
     {
         field: "password",
         headerName: "Password",
@@ -16,6 +20,7 @@ export const userColumns = [
         headerName: "Role",
         flex: .5,
         rowGroup: true
+
     },
     {
         field: "department",
@@ -27,4 +32,9 @@ export const userColumns = [
         headerName: "Status",
         flex: .5,
     },
+    {
+        field: "action",
+        headerName: "Action",
+        width: 200,
+    }
 ];

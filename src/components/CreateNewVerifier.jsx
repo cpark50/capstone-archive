@@ -52,51 +52,62 @@ const VerifierPopup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("creating")
 
-        try {
-            // Generate random username and password
-            generateUser();
-            generatePassword();
+        if (department != "" && username != "" && password != "") {
+            try {
+                // Generate random username and password
+                // Create user in Firebase Authentication
+                // TURN BACK ON LATER< OFF FOR TESTING
+                // const userCredential = await createUserWithEmailAndPassword(auth, username, password);
+                // const user = userCredential.user;
 
-            // Create user in Firebase Authentication
-            // TURN BACK ON LATER< OFF FOR TESTING
-            // const userCredential = await createUserWithEmailAndPassword(auth, username, password);
-            // const user = userCredential.user;
+                // Add user details to Firestore
+                await addDoc(collection(firestore, "users"), {
+                    name: username,
+                    password: password,
+                    role: "verifier",
+                    department: department,
+                    status: true,
+                    students: 0
+                }).then(async function (docRef) {
+                    // Access the subcollection using the correct path "user" -> "docRef id"
+                    // Note: firebase needs ONE document to be added to it in order to create a collection. Either need to create here and delete dummy item or other. 
+                    const usersFolder = query(collection(firestore, "user"));
+                    const querySnapshot = await getDocs(usersFolder);
+                    const queryData = querySnapshot.docs.map((details) => ({
+                        ...details.data(),
+                        id: details.id
 
-            // Add user details to Firestore
-            await addDoc(collection(firestore, "users"), {
-                name: username,
-                password: password,
-                role: "verifier",
-                order: ["verifier"],
-                department: department,
-                status: true,
-                students: 0
-            }).then(async function (docRef) {
-                // Access the subcollection using the correct path "user" -> "docRef id"
-                // Note: firebase needs ONE document to be added to it in order to create a collection. Either need to create here and delete dummy item or other. 
+                    }));
+                    // set the associatedTAName to the ID of the verifier for reference for 
+                    await setDoc(doc(firestore, `users/${docRef.id}`), { associatedTAName: docRef.id }, { merge: true });
 
+                    await setDoc(doc(firestore, `users/${docRef.id}/students`, "STUDENTNAMEHERE"),
+                        {
+                            // generate new name in other document 
+                            name: username,
+                            associatedTAName: docRef.id,
+                            password: password,
+                            role: "student",
+                            department: department,
+                            status: true,
+                            // PUT BACK IF TESTING 
+                            // projectStatus: false,
+                            // projectID: null,
+                        });
+                    // TODO DELETE THE STUDENTS 
+                    // collection("user").document(docRef.id).collection("student").document("name").delete()
+                });
+                // maybe delete dummy value IF NOT do not show the value/create the collection somewhere else (ie when first student is made)
 
+            } catch (error) {
+                console.log(error)
+            }
+            console.log("created")
 
-
-                const usersFolder = query(collection(firestore, "user"));
-                const querySnapshot = await getDocs(usersFolder);
-                const queryData = querySnapshot.docs.map((details) => ({
-                    ...details.data(),
-                    id: details.id
-                }));
-                await setDoc(doc(firestore, `users/${docRef.id}/students`, "TEMPNAME"),
-                    {
-                        name: "TEMPNAME"
-                    });
-                // TODO DELETE THE STUDENTS 
-                collection("user").document(docRef.id).collection("student").document("name").delete()
-            });
-
-            // maybe delete dummy value IF NOT do not show the value/create the collection somewhere else (ie when first student is made)
-
-        } catch (error) {
-            console.log(error)
+        } else {
+            console.log(department, username, password)
         }
     };
 
@@ -106,7 +117,7 @@ const VerifierPopup = () => {
             modal closeOnDocumentClick>
             <div className="pop-up">
                 <h2 className="popup-title" > Add New Verifier</h2>
-                <form onSubmit={handleSubmit}>
+                <form >
                     {/* Call on generate users button */}
                     <hr className="divider" />
                     <div>
@@ -148,7 +159,7 @@ const VerifierPopup = () => {
                     </div>
 
                     <span class="create-verifier-text">Create Verifier</span>
-                    <button type="submit" class="generate-verifier-btn">Create Verifier</button>
+                    <button type="submit" class="generate-verifier-btn" onClick={handleSubmit}>Create Verifier</button>
                 </form>
                 {/* <button type="submit">Close</button> */}
             </div>

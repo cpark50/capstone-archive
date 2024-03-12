@@ -28,6 +28,7 @@ import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 // test 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { type } from "@testing-library/user-event/dist/type/index.js";
 
 
 
@@ -40,19 +41,30 @@ export const Admin = () => {
     const [collapsed, setCollapsed] = useState(false)
 
     useEffect(() => {
-        const unsub = onSnapshot(
-            collection(firestore, "users"),
-            (snapShot) => {
+        const fetchData = async () => {
+            try {
+                const snapShot = await getDocs(collection(firestore, "users"));
                 let list = [];
-                snapShot.docs.forEach((doc) => {
-                    list.push({ id: doc.id, ...doc.data() });
-                });
+
+                await Promise.all(snapShot.docs.map(async (doc) => {
+                    let userData = { id: doc.id, ...doc.data() };
+                    list.push(userData);
+
+                    const subcollectionSnapshot = await getDocs(collection(firestore, "users", doc.id, "students"));
+
+                    subcollectionSnapshot.forEach((subDoc) => {
+                        let studentData = { id: subDoc.id, ...subDoc.data() }
+                        list.push(studentData);
+                    });
+                }));
+
                 setData(list);
-            },
-            (error) => {
-                console.log(error);
+            } catch (error) {
+                console.error("Error fetching data:", error);
             }
-        );
+        };
+
+        const unsub = onSnapshot(collection(firestore, "users"), fetchData);
 
         return () => {
             unsub();
@@ -63,7 +75,9 @@ export const Admin = () => {
     // TODOS: 
     // 1: Ask for confirmation, DONE
     // 2: Delete user from firebase, DONE
+    // RESTRICT DELETE IF student for now if verifier 
     const handleDelete = async (id) => {
+
         try {
             const confirmation = window.confirm("Are you sure you want to delete this user?");
             if (confirmation) {
@@ -129,25 +143,37 @@ export const Admin = () => {
             headerName: "Action",
             width: 200,
             cellRenderer: (params) => {
-                return (
-                    <div className="cellAction">
-                        {/* Call handleEdit to render the EditUserPopup */}
-                        {/* {handleEdit(params.data.id)} */}
-                        <div
-                            className="deleteButton"
-                            onClick={() => handleDelete(params.data.id)}
-                        >
-                            Delete
+                try {
+
+                    const id = params.data.id;
+
+                    // Check if the 'id' exists
+                    const showActionColumn = id !== undefined;
+                    return (
+                        <div className="cellAction">
+                            {/* Call handleEdit to render the EditUserPopup */}
+                            {/* {handleEdit(params.data.id)} */}
+                            <div
+                                className="deleteButton"
+
+                                onClick={() => handleDelete(params.data.id)}
+                            >
+                                Delete
+                            </div>
+                            <div
+                                className="expandButton"
+                                onClick={() => setCollapsed(!collapsed)}>
+                                {handleExpand}
+                                Expand
+                            </div>
                         </div>
-                        <div
-                            className="expandButton"
-                            onClick={() => setCollapsed(!collapsed)}>
-                            {handleExpand}
-                            Expand
-                        </div>
-                    </div>
-                );
+                    );
+                } catch (error) {
+                    return ''
+                }
+
             },
+
         },
     ];
 
@@ -173,9 +199,13 @@ export const Admin = () => {
     //     // other grid options ...
     // }
 
-    const getDataPath = (data) => {
-        return data.order;
-    }
+
+    // const getDataPath = (data) => {
+    //     return data.order;
+    // }
+
+    // if (data.lengt)
+
 
     return (
         <div className="main-background" id="outer-container">
@@ -224,8 +254,8 @@ export const Admin = () => {
                         rowData={data}
                         animateRows={true}
                         suppressMovableColumns={true}
-                        // gridOptions={gridOptions}
-                        getDataPath={getDataPath(data)}
+                    // gridOptions={gridOptions}
+                    // getDataPath={getDataPath(data)}
 
 
                     // need to access the collection, then render the data 
