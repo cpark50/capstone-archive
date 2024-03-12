@@ -152,7 +152,7 @@ export const Verifer = () => {
                             {/* Add options for departments */}
                         </select>
                     </div>
-                    <div className="buttons">
+                    <div className="verifier-buttons">
                         <VerifierPopup />
                         <button className="add-student">Add Student</button>
                         <button className="refresh">Refresh</button>

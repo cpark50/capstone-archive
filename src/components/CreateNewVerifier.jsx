@@ -4,6 +4,8 @@ import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/fires
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
+import addIcon from '../assets/add-icon.jpg';
+
 const VerifierPopup = () => {
     const auth = getAuth()
     const [department, setDepartment] = useState('');
@@ -66,7 +68,9 @@ const VerifierPopup = () => {
     
 
     return (
-        <Popup trigger={<button>Add Verifier</button>}
+        <Popup trigger={<button>Add Verifier
+            <img src={addIcon} alt="Add" style={{width: 'auto', height: '40px', marginLeft: '80px'}} />
+        </button>}
          modal closeOnDocumentClick>
             <div className="pop-up">
                 <h2 className = "popup-add" > Add New Verifier</h2>
