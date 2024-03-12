@@ -4,7 +4,6 @@ import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/fires
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
-import addIcon from '../assets/add-icon.jpg';
 
 const VerifierPopup = () => {
     const auth = getAuth()
@@ -68,9 +67,10 @@ const VerifierPopup = () => {
     
 
     return (
-        <Popup trigger={<button>Add Verifier
-            <img src={addIcon} alt="Add" style={{width: 'auto', height: '40px', marginLeft: '80px'}} />
-        </button>}
+        <Popup trigger=  {<button style={{ position: 'relative' }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '95px', transform: 'translate(-50%, -50%)' }}>
+        <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+      </svg>Add Verifier </button>}
          modal closeOnDocumentClick>
             <div className="pop-up">
                 <h2 className = "popup-add" > Add New Verifier</h2>
