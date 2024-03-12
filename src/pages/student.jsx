@@ -5,7 +5,7 @@ import backgroundImage from '../assets/pointing.jpg';
 export const Student = () => {
     return (
         <div className="student-main" id="outer-container" style={{
-            backgroundImage: `url(${backgroundImage})`,
+            // backgroundImage: `url(${backgroundImage})`,
             backgroundSize: 'cover',
             height: '100vh',
             display: 'flex',
