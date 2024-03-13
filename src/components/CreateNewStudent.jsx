@@ -4,9 +4,9 @@ import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs, query } from
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
-const VerifierPopup = () => {
+const StudentPopup = () => {
     const auth = getAuth()
-    const [department, setDepartment] = useState('');
+    const [department, setDepartment] = useState('TEMP');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [number, setNumber] = useState('');
@@ -34,7 +34,7 @@ const VerifierPopup = () => {
             newUser += charset.charAt(Math.floor(Math.random() * charset.length));
         }
 
-        newUser += "@verifier.com"
+        newUser += "@student.com"
 
         setUsername(newUser)
 
@@ -52,30 +52,34 @@ const VerifierPopup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("creating")
 
         if (department != "" && username != "" && password != "") {
             try {
+                // Generate random username and password
+                // Create user in Firebase Authentication
+                // TURN BACK ON LATER< OFF FOR TESTING
 
+                const taInfo = auth.currentUser.uid
 
-                // Information for the account being created (verifier)
+                // Information for the account being created (student)
                 const userCredential = await createUserWithEmailAndPassword(auth, username, password);
                 const user = userCredential.user;
 
 
+                // set Name to something else
+                await setDoc(doc(firestore, `users/${taInfo}/students`, username),
+                    {
+                        // generate new name in other document 
+                        name: username,
+                        associatedTAName: taInfo,
+                        password: password,
+                        role: "student",
+                        department: department,
+                        status: true,
+                        projectStatus: "unsubmitted",
+                        projectID: null,
+                    });
                 // Add user details to Firestore
-                await setDoc(doc(firestore, "users", userCredential.user.uid), {
-                    name: username,
-                    password: password,
-                    role: "verifier",
-                    department: department,
-                    status: true,
-                    students: 0
-                }).then(async function (docRef) {
-                    await setDoc(doc(firestore, `users/${userCredential.user.uid}`), { associatedTAName: userCredential.user.uid }, { merge: true });
-
-                });
-
             } catch (error) {
                 console.log(error)
             }
@@ -83,15 +87,16 @@ const VerifierPopup = () => {
 
         } else {
             console.log(department, username, password)
+            // TODO: ADD POPUP SAYING WHAT IS MISSING 
         }
     };
 
 
     return (
-        <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
+        <Popup trigger={<button className='add-verifier'>Add Student</button>}
             modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2 className="popup-title" > Add New Verifier</h2>
+                <h2 className="popup-title" > Add New Student</h2>
                 <form >
                     {/* Call on generate users button */}
                     <hr className="divider" />
@@ -106,21 +111,6 @@ const VerifierPopup = () => {
                         <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
-                        <label htmlFor="department">Department: </label>
-
-                        <select
-                            id="department"
-                            value={department}
-                            onChange={(e) => setDepartment(e.target.value)}
-                        >
-                            <option value="">Select Department</option>
-                            <option value="Computer Science">Computer Science</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Informatics">Informatics</option>
-                        </select>
-                        <hr className="divider" />
-                    </div>
-                    <div>
                         <label htmlFor="number" className="admin-page-label" >Number: </label>
                         <input
                             type="number"
@@ -133,8 +123,8 @@ const VerifierPopup = () => {
 
                     </div>
 
-                    <span class="create-verifier-text">Create Verifier</span>
-                    <button type="submit" class="generate-verifier-btn" onClick={handleSubmit}>Create Verifier</button>
+                    <span class="create-verifier-text">Create Student</span>
+                    <button type="submit" class="generate-verifier-btn" onClick={handleSubmit}>Create Student</button>
                 </form>
                 {/* <button type="submit">Close</button> */}
             </div>
@@ -142,4 +132,4 @@ const VerifierPopup = () => {
     );
 };
 
-export default VerifierPopup;
+export default StudentPopup;

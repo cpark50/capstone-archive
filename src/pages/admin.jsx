@@ -1,14 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-// import SideMenu from "../components/NavigationMenu";
-// import { DataGrid } from "@mui/x-data-grid";
-
-
 import "reactjs-popup/dist/index.css"; // Import the CSS file
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import EditUserPopup from '../components/EditUserPopup.jsx';
 import VerifierPopup from "../components/CreateNewVerifier.jsx"
 
+// firebase imports
 import {
     collection,
     getDocs,
@@ -17,18 +14,21 @@ import {
     doc,
     onSnapshot
 } from "@firebase/firestore";
+// Note: deleteUserAuth does not work due to constraints of firebase, look into alternatives or just archive accounts 
 import { firestore, deleteUserAuth } from "../firebase.js";
 import { userColumns, userRows } from "../styles/datasource.js";
+// firebase imports end
 
+
+// AG grid imports 
 import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry } from "ag-grid-community";
-// import { ModuleRegistry } from '@ag-grid-community';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
-
-// test 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { type } from "@testing-library/user-event/dist/type/index.js";
+// AG grid imports end 
+
 
 
 
@@ -160,12 +160,6 @@ export const Admin = () => {
                             >
                                 Delete
                             </div>
-                            <div
-                                className="expandButton"
-                                onClick={() => setCollapsed(!collapsed)}>
-                                {handleExpand}
-                                Expand
-                            </div>
                         </div>
                     );
                 } catch (error) {
@@ -176,35 +170,6 @@ export const Admin = () => {
 
         },
     ];
-
-    // const StudentDropdown = ({ value }) => {
-
-
-    // 
-
-    // const StudentDropdown = () => {
-    //     // Render a simple dropdown for each teacher's students
-    //     return (
-    //         <select>
-    //             {value.map((student, index) => (
-    //                 <option key={index}>{student}</option>
-    //             ))}
-    //         </select>
-    //     );
-    // };
-
-    // const gridOptions = {
-    //     treeData: true,
-
-    //     // other grid options ...
-    // }
-
-
-    // const getDataPath = (data) => {
-    //     return data.order;
-    // }
-
-    // if (data.lengt)
 
 
     return (
@@ -231,39 +196,20 @@ export const Admin = () => {
                     </div>
                     <div className="buttons">
                         <VerifierPopup />
-                        <button className="add-student">Add Student</button>
-                        <button className="refresh">Refresh</button>
                     </div>
                 </div>
-                {/* <div className="bar">
-                    <div className="datatable">
-                        <DataGrid
-                            className="datagrid"
-                            rows={data}
-                            columns={userColumns.concat(actionColumn)}
-                            pageSize={9}
-                            rowsPerPageOptions={[9]}
-                            checkboxSelection
-                        />
-                    </div>
-                </div> */}
 
+                {/* start of section for the user display */}
                 <div className="ag-theme-alpine" style={{ height: "400px", width: "100%" }}>
                     <AgGridReact
                         columnDefs={userColumns.concat(actionColumn)}
                         rowData={data}
                         animateRows={true}
                         suppressMovableColumns={true}
-                    // gridOptions={gridOptions}
-                    // getDataPath={getDataPath(data)}
-
-
-                    // need to access the collection, then render the data 
-                    // 1. when render the row get the collection and store in a value
-                    // 2. 
+                        enableCellTextSelection={true}
                     />
                 </div>
-
+                {/* end of user display  */}
             </div>
         </div>
     );

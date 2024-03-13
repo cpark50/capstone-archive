@@ -20,7 +20,6 @@ export const userColumns = [
         headerName: "Role",
         flex: .5,
         rowGroup: true
-
     },
     {
         field: "department",
@@ -32,9 +31,4 @@ export const userColumns = [
         headerName: "Status",
         flex: .5,
     },
-    {
-        field: "action",
-        headerName: "Action",
-        width: 200,
-    }
 ];
