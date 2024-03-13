@@ -183,7 +183,7 @@ export const Verifer = () => {
                             {/* Add options for roles */}
                         </select>
                     </div>
-                    <div className="buttons">
+                    <div className="verifier-buttons">
                         {/* ADD STUDENT POPUP  */}
                         <StudentPopup />
                     </div>

@@ -4,6 +4,7 @@ import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs, query } from
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
+
 const VerifierPopup = () => {
     const auth = getAuth()
     const [department, setDepartment] = useState('');
@@ -88,11 +89,14 @@ const VerifierPopup = () => {
 
 
     return (
-        <Popup trigger={<button className='add-verifier'>Add Verifier</button>}
-            modal closeOnDocumentClick>
+        <Popup trigger=  {<button style={{ position: 'relative' }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '95px', transform: 'translate(-50%, -50%)' }}>
+        <path fill="black" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+      </svg>Add Verifier </button>}
+         modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2 className="popup-title" > Add New Verifier</h2>
-                <form >
+                <h2 className = "popup-add" > Add New Verifier</h2>
+                <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
                     <hr className="divider" />
                     <div>
@@ -108,8 +112,9 @@ const VerifierPopup = () => {
                     <div>
                         <label htmlFor="department">Department: </label>
 
+
                         <select
-                            id="department"
+                            className = "admin-department-add"
                             value={department}
                             onChange={(e) => setDepartment(e.target.value)}
                         >
