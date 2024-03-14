@@ -196,11 +196,6 @@ export const Admin = () => {
                     </div>
                     <div className="admin-buttons">
                         <VerifierPopup />
-                        {<button style={{ position: 'relative' }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '97px', transform: 'translate(-50%, -50%)' }}>
-                                <path fill="black" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-                            </svg>Add Student
-                        </button>}
 
                         <button style={{ position: 'relative' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '90px', transform: 'translate(-50%, -50%)' }}>

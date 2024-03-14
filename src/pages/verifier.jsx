@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import EditUserPopup from '../components/EditUserPopup.jsx';
 import StudentPopup from "../components/CreateNewStudent.jsx"
+
 // firebase imports
 import {
     collection,
@@ -41,13 +42,21 @@ import { type } from "@testing-library/user-event/dist/type/index.js";
 // 5. Accept projects
 // 6. Add projects with comments
 
+const CheckUID = () => {
+    const { uid } = useContext(AuthContext);
+    return uid;
+};
 
 export const Verifer = () => {
     ModuleRegistry.registerModules([RowGroupingModule]);
     const [data, setData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    const user = CheckUID()
+
 
     // maybe move to just the context so we don't need to import then created user var
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,13 +64,12 @@ export const Verifer = () => {
             // WHEN STUDENTS ARE CREATED IT CHANGES THE GETAUTH.CURRENTUSER TO THE IDEA OF THE STUDENTS, 
             // IDEA: FOR THE CONTEXT SAVE THE AUTH AND CALL TO GET IT RATHER THAN CALLING IT HERE
 
-            const user = getAuth().currentUser
 
             try {
                 const snapShot = await getDocs(collection(firestore, "users"));
                 let list = [];
 
-                console.log("Current user: " + user.uid)
+                console.log("Current user: " + user)
 
                 await Promise.all(snapShot.docs.map(async (doc) => {
                     let userData = { id: doc.id, ...doc.data() };
@@ -69,7 +77,7 @@ export const Verifer = () => {
                     console.log("Checked File: " + doc.id)
 
                     // checks if document is the TAs
-                    if (doc.id === user.uid) {
+                    if (doc.id === user) {
                         const subcollectionSnapshot = await getDocs(collection(firestore, "users", doc.id, "students"));
 
                         subcollectionSnapshot.forEach((subDoc) => {
@@ -186,6 +194,13 @@ export const Verifer = () => {
                     <div className="verifier-buttons">
                         {/* ADD STUDENT POPUP  */}
                         <StudentPopup />
+
+                        <Link to="/verify">
+                            <button className=" border-2 border-slate-800 text-slate-800 p-2 rounded-md hover:text-white hover:bg-slate-900 text-lg duration-300">
+                                Verify Projects
+                            </button>
+                        </Link>
+
                     </div>
                 </div>
 
@@ -196,6 +211,8 @@ export const Verifer = () => {
                         rowData={data}
                         animateRows={true}
                         suppressMovableColumns={true}
+                        enableCellTextSelection={true}
+
                     />
                 </div>
             </div>

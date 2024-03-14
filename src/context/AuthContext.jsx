@@ -2,10 +2,10 @@ import { createContext, useEffect, useReducer } from "react";
 import AuthReducer from "./AuthReducer";
 
 const INITIAL_STATE = {
-    // TODO: store in local 
     currentUser: null, // FOR SOME REASON THIS IS ALWAYS GOING TO BE UNDEFINED AHHHHHHHH
     permissionLevel: JSON.parse(localStorage.getItem("user")) || null,
-    accessLevel: JSON.parse(localStorage.getItem("permission")) || null
+    accessLevel: JSON.parse(localStorage.getItem("permission")) || null,
+    uid: JSON.parse(localStorage.getItem("uid")) || null
 
 }
 
@@ -18,11 +18,14 @@ export const AuthContextProvider = ({ children }) => {
 
         localStorage.setItem("user", JSON.stringify(state.permissionLevel))
         localStorage.setItem("permission", JSON.stringify(state.accessLevel))
+        localStorage.setItem("uid", JSON.stringify(state.uid))
+
+
 
     }, [state.permissionLevel])
 
     return (
-        <AuthContext.Provider value={{ permissionLevel: state.permissionLevel, currentUser: state.currentUser, accessLevel: state.accessLevel, dispatch }}>
+        <AuthContext.Provider value={{ permissionLevel: state.permissionLevel, currentUser: state.currentUser, accessLevel: state.accessLevel, uid: state.uid, dispatch }}>
             {children}
         </AuthContext.Provider>
     );

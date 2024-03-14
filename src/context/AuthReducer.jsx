@@ -20,6 +20,7 @@ const AuthReducer = (state, action) => {
             return {
                 accessLevel: value,
                 permissionLevel: action.payload,
+                uid: action.payload.uid
             };
         }
         case "LOGOUT": {
@@ -27,7 +28,8 @@ const AuthReducer = (state, action) => {
             return {
                 currentUser: null, // FOR SOME REASON THIS IS ALWAYS GOING TO BE UNDEFINED AHHHHHHHH
                 permissionLevel: null,
-                accessLevel: null
+                accessLevel: null,
+                uid: null
             }
         }
         default:

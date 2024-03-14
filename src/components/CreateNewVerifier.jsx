@@ -10,7 +10,6 @@ const VerifierPopup = () => {
     const [department, setDepartment] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [number, setNumber] = useState('');
 
     const [details, setDetails] = useState({
         name: "0",
@@ -89,32 +88,23 @@ const VerifierPopup = () => {
 
 
     return (
-        <Popup trigger=  {<button style={{ position: 'relative' }}>
-        <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '95px', transform: 'translate(-50%, -50%)' }}>
-        <path fill="black" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-      </svg>Add Verifier </button>}
-         modal closeOnDocumentClick>
+        <Popup trigger={<button style={{ position: 'relative' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '95px', transform: 'translate(-50%, -50%)' }}>
+                <path fill="black" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+            </svg>Add Verifier </button>}
+            modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2 className = "popup-add" > Add New Verifier</h2>
+                <h2 className="popup-add" > Add New Verifier</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
                     <hr className="divider" />
-                    <div>
-                        <span class="generate-user-text">Generate User</span>
-                        <hr className="divider" />
-                        <button class="generate-user-btn" onClick={generateUser}>Generate User</button>
-                    </div>
-                    <div>
-                        <span class="generate-passsword-text">Generate Password</span>
-                        <hr className="divider" />
-                        <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
-                    </div>
+
                     <div>
                         <label htmlFor="department">Department: </label>
 
 
                         <select
-                            className = "admin-department-add"
+                            className="admin-department-add"
                             value={department}
                             onChange={(e) => setDepartment(e.target.value)}
                         >
@@ -124,18 +114,6 @@ const VerifierPopup = () => {
                             <option value="Informatics">Informatics</option>
                         </select>
                         <hr className="divider" />
-                    </div>
-                    <div>
-                        <label htmlFor="number" className="admin-page-label" >Number: </label>
-                        <input
-                            type="number"
-                            id="number"
-                            value={number}
-                            onChange={(e) => setNumber(e.target.value)}
-                            placeholder="Enter a number"
-                        />
-                        <hr className="divider" />
-
                     </div>
 
                     <span class="create-verifier-text">Create Verifier</span>
