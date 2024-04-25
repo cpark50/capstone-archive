@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-// import SideMenu from "../components/NavigationMenu";
-import { DataGrid } from "@mui/x-data-grid";
 import "reactjs-popup/dist/index.css"; // Import the CSS file
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import EditUserPopup from '../components/EditUserPopup.jsx';
+import StudentPopup from "../components/CreateNewStudent.jsx"
 
-import VerifierPopup from "../components/CreateNewVerifier.jsx"
+// firebase imports
 import {
     collection,
     getDocs,
@@ -16,14 +16,19 @@ import {
 } from "@firebase/firestore";
 import { firestore } from "../firebase.js";
 import { userColumns, userRows } from "../styles/datasourceverifier.js";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
+// AG grid imports 
+import { AgGridReact } from "ag-grid-react";
+import { ModuleRegistry } from "ag-grid-community";
+import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import { type } from "@testing-library/user-event/dist/type/index.js";
+// AG grid imports end 
 
 // TODO MAKE THE POPUP INTO A COMPONENT FOR IMPORT 
-
-// WHAT TO ADD
-// on creation of a verifier should add a new collection of students under them 
-// user
-// user/verifier 
-// user/verifier/student/etc 
 
 
 // 1. Ability to see Accounts available to them (accountComponent); 
@@ -36,25 +41,60 @@ import { userColumns, userRows } from "../styles/datasourceverifier.js";
 // 4. View projects 
 // 5. Accept projects
 // 6. Add projects with comments
+
+const CheckUID = () => {
+    const { uid } = useContext(AuthContext);
+    return uid;
+};
+
 export const Verifer = () => {
+    ModuleRegistry.registerModules([RowGroupingModule]);
     const [data, setData] = useState([]);
-    const [department, setDepartment] = useState("");
-    const [number, setNumber] = useState("");
+    const [selectedUser, setSelectedUser] = useState(null);
+    const user = CheckUID()
+
+
+    // maybe move to just the context so we don't need to import then created user var
+
+
 
     useEffect(() => {
-        const unsub = onSnapshot(
-            collection(firestore, "users"),
-            (snapShot) => {
+        const fetchData = async () => {
+            // BIGGGGGGGGGG TOODOOO 
+            // WHEN STUDENTS ARE CREATED IT CHANGES THE GETAUTH.CURRENTUSER TO THE IDEA OF THE STUDENTS, 
+            // IDEA: FOR THE CONTEXT SAVE THE AUTH AND CALL TO GET IT RATHER THAN CALLING IT HERE
+
+
+            try {
+                const snapShot = await getDocs(collection(firestore, "users"));
                 let list = [];
-                snapShot.docs.forEach((doc) => {
-                    list.push({ id: doc.id, ...doc.data() });
-                });
+
+                console.log("Current user: " + user)
+
+                await Promise.all(snapShot.docs.map(async (doc) => {
+                    let userData = { id: doc.id, ...doc.data() };
+
+                    console.log("Checked File: " + doc.id)
+
+                    // checks if document is the TAs
+                    if (doc.id === user) {
+                        const subcollectionSnapshot = await getDocs(collection(firestore, "users", doc.id, "students"));
+
+                        subcollectionSnapshot.forEach((subDoc) => {
+                            let studentData = { id: subDoc.id, ...subDoc.data() }
+                            list.push(studentData);
+                        });
+                    }
+                }));
+
+                console.log(list)
                 setData(list);
-            },
-            (error) => {
-                console.log(error);
+            } catch (error) {
+                console.error("Error fetching data:", error);
             }
-        );
+        };
+
+        const unsub = onSnapshot(collection(firestore, "users"), fetchData);
 
         return () => {
             unsub();
@@ -65,8 +105,7 @@ export const Verifer = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Process form data here
-        console.log("Department:", department);
-        console.log("Number:", number);
+
         // Close the pop-up after processing
         // You can add your logic to submit data or perform other actions here
     };
@@ -100,33 +139,36 @@ export const Verifer = () => {
 
 
     const actionColumn = [
-        // Any actions regarding each user should go here 
         {
             field: "action",
             headerName: "Action",
             width: 200,
-            renderCell: (params) => {
-                return (
-                    <div className="cellAction">
-                        {/* <Link to="/users/test" style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link> */}
-                        <div
-                            className="editButton"
-                            onClick={() => handleEdit(params.row.id)}
-                        >
-                            Edit
-                        </div>
-                        <div
-                            className="deleteButton"
-                            onClick={() => handleDelete(params.row.id)}
-                        >
-                            Delete
-                        </div>
+            cellRenderer: (params) => {
+                try {
 
-                    </div>
-                );
+                    const id = params.data.id;
+
+                    // Check if the 'id' exists
+                    const showActionColumn = id !== undefined;
+                    return (
+                        <div className="cellAction">
+                            {/* Call handleEdit to render the EditUserPopup */}
+                            {/* {handleEdit(params.data.id)} */}
+                            <div
+                                className="deleteButton"
+
+                                onClick={() => handleDelete(params.data.id)}
+                            >
+                                Delete
+                            </div>
+                        </div>
+                    );
+                } catch (error) {
+                    return ''
+                }
+
             },
+
         },
     ];
 
@@ -137,45 +179,43 @@ export const Verifer = () => {
                 <h1 className="welcome-text">Welcome Verifier!</h1>
                 {/* Add title for dropdowns */}
                 <div className="dropdown-titles">
-                    <h2 className="dropdown-title">Role</h2>
-                    <h2 className="dropdown-title2">Department</h2>
+                    <h2 className="dropdown-title">Status</h2>
                 </div>
                 {/* End of title for dropdowns */}
                 <div className="header">
                     <div className="dropdowns">
                         <select className="dropdown">
-                            <option value="roles">All</option>
+                            <option value="complete">Complete</option>
+                            <option value="pending">Pending</option>
+                            <option value="unsubmitted">Unsubmitted</option>
                             {/* Add options for roles */}
-                        </select>
-                        <select className="dropdown">
-                            <option value="departments">All</option>
-                            {/* Add options for departments */}
                         </select>
                     </div>
                     <div className="verifier-buttons">
-                        <VerifierPopup />
-                        <button className="add-student">Add Student</button>
-                        <button className="refresh">Refresh</button>
+                        {/* ADD STUDENT POPUP  */}
+                        <StudentPopup />
+
+                        <Link to="/verify">
+                            <button className=" border-2 border-slate-800 text-slate-800 p-2 rounded-md hover:text-white hover:bg-slate-900 text-lg duration-300">
+                                Verify Projects
+                            </button>
+                        </Link>
+
                     </div>
                 </div>
-                <div className="bar">
-                    <div className="datatable">
-                        <DataGrid
-                            className="datagrid"
-                            rows={data}
-                            columns={userColumns.concat(actionColumn)}
-                            pageSize={9}
-                            rowsPerPageOptions={[9]}
-                            checkboxSelection
-                        />
-                    </div>
 
 
-                </div>
-                <div className="scroll-box">
-                    {/* Content here, this div will scroll if needed */}
+                <div className="ag-theme-alpine" style={{ height: "400px", width: "100%" }}>
+                    <AgGridReact
+                        columnDefs={userColumns.concat(actionColumn)}
+                        rowData={data}
+                        animateRows={true}
+                        suppressMovableColumns={true}
+                        enableCellTextSelection={true}
+
+                    />
                 </div>
             </div>
         </div>
-    );
+    )
 };

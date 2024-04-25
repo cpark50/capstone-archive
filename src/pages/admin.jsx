@@ -1,14 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-// import SideMenu from "../components/NavigationMenu";
-// import { DataGrid } from "@mui/x-data-grid";
-
-
 import "reactjs-popup/dist/index.css"; // Import the CSS file
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import EditUserPopup from '../components/EditUserPopup.jsx';
 import VerifierPopup from "../components/CreateNewVerifier.jsx"
 
+// firebase imports
 import {
     collection,
     getDocs,
@@ -17,18 +14,21 @@ import {
     doc,
     onSnapshot
 } from "@firebase/firestore";
+// Note: deleteUserAuth does not work due to constraints of firebase, look into alternatives or just archive accounts 
 import { firestore, deleteUserAuth } from "../firebase.js";
 import { userColumns, userRows } from "../styles/datasource.js";
+// firebase imports end
 
+
+// AG grid imports 
 import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry } from "ag-grid-community";
-// import { ModuleRegistry } from '@ag-grid-community';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
-
-// test 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { type } from "@testing-library/user-event/dist/type/index.js";
+// AG grid imports end 
+
 
 
 
@@ -160,12 +160,6 @@ export const Admin = () => {
                             >
                                 Delete
                             </div>
-                            <div
-                                className="expandButton"
-                                onClick={() => setCollapsed(!collapsed)}>
-                                {handleExpand}
-                                Expand
-                            </div>
                         </div>
                     );
                 } catch (error) {
@@ -176,35 +170,6 @@ export const Admin = () => {
 
         },
     ];
-
-    // const StudentDropdown = ({ value }) => {
-
-
-    // 
-
-    // const StudentDropdown = () => {
-    //     // Render a simple dropdown for each teacher's students
-    //     return (
-    //         <select>
-    //             {value.map((student, index) => (
-    //                 <option key={index}>{student}</option>
-    //             ))}
-    //         </select>
-    //     );
-    // };
-
-    // const gridOptions = {
-    //     treeData: true,
-
-    //     // other grid options ...
-    // }
-
-
-    // const getDataPath = (data) => {
-    //     return data.order;
-    // }
-
-    // if (data.lengt)
 
 
     return (
@@ -231,48 +196,26 @@ export const Admin = () => {
                     </div>
                     <div className="admin-buttons">
                         <VerifierPopup />
-                        {<button style={{ position: 'relative' }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '97px', transform: 'translate(-50%, -50%)' }}>
-                            <path fill="black" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-                            </svg>Add Student 
-                        </button>}
 
                         <button style={{ position: 'relative' }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '90px', transform: 'translate(-50%, -50%)' }}>
-                            <path fill="black" d="M13.5 2c-5.288 0-9.649 3.914-10.377 9h-3.123l4 5.917 4-5.917h-2.847c.711-3.972 4.174-7 8.347-7 4.687 0 8.5 3.813 8.5 8.5s-3.813 8.5-8.5 8.5c-3.015 0-5.662-1.583-7.171-3.957l-1.2 1.775c1.916 2.536 4.948 4.182 8.371 4.182 5.797 0 10.5-4.702 10.5-10.5s-4.703-10.5-10.5-10.5z"/>
+                            <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '90px', transform: 'translate(-50%, -50%)' }}>
+                                <path fill="black" d="M13.5 2c-5.288 0-9.649 3.914-10.377 9h-3.123l4 5.917 4-5.917h-2.847c.711-3.972 4.174-7 8.347-7 4.687 0 8.5 3.813 8.5 8.5s-3.813 8.5-8.5 8.5c-3.015 0-5.662-1.583-7.171-3.957l-1.2 1.775c1.916 2.536 4.948 4.182 8.371 4.182 5.797 0 10.5-4.702 10.5-10.5s-4.703-10.5-10.5-10.5z" />
                             </svg>Refresh
                         </button>
                     </div>
                 </div>
-                {/* <div className="bar">
-                    <div className="datatable">
-                        <DataGrid
-                            className="datagrid"
-                            rows={data}
-                            columns={userColumns.concat(actionColumn)}
-                            pageSize={9}
-                            rowsPerPageOptions={[9]}
-                            checkboxSelection
-                        />
-                    </div>
-                </div> */}
 
+                {/* start of section for the user display */}
                 <div className="ag-theme-alpine" style={{ height: "400px", width: "100%" }}>
                     <AgGridReact
                         columnDefs={userColumns.concat(actionColumn)}
                         rowData={data}
                         animateRows={true}
                         suppressMovableColumns={true}
-                    // gridOptions={gridOptions}
-                    // getDataPath={getDataPath(data)}
-
-
-                    // need to access the collection, then render the data 
-                    // 1. when render the row get the collection and store in a value
-                    // 2. 
+                        enableCellTextSelection={true}
                     />
                 </div>
-
+                {/* end of user display  */}
             </div>
         </div>
     );

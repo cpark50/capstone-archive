@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ProjectView from "./ProjectView";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../context/AuthContext";
-import './login-styles.css'; 
+import './login-styles.css';
 
 
 export const Login = () => {
@@ -31,7 +31,7 @@ export const Login = () => {
     const { dispatch } = useContext(AuthContext)
 
 
-// It will submit the user&password to login
+    // It will submit the user&password to login
     const handlelogin = (e) => {
         e.preventDefault();
         if (!email || !password) {
@@ -43,9 +43,11 @@ export const Login = () => {
 
 
         if (email && password) {
-            
+
 
             const auth = getAuth();
+            const user = auth.currentUser
+            console.log(user)
 
             signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
                 // Signed in 
@@ -126,8 +128,8 @@ export const Login = () => {
 }
 
 export const Logout = () => {
-// TODO: Navigate to ProjectView
-// TODO: Reset permissionLevel, accessLevel in AuthContext.
-// TODO: What is LOGOUT in AuthReducer???
+    // TODO: Navigate to ProjectView
+    // TODO: Reset permissionLevel, accessLevel in AuthContext.
+    // TODO: What is LOGOUT in AuthReducer???
 
 }
