@@ -135,8 +135,13 @@ const VerifierPopup = () => {
                         <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
+<<<<<<<<< Temporary merge branch 1
                         <label htmlFor="department" >Department: </label>
                 
+=========
+                        <label htmlFor="department">Department: </label>
+
+>>>>>>>>> Temporary merge branch 2
                         <select
                             className = "admin-department-add"
                             value={department}
