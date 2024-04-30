@@ -138,6 +138,23 @@ export const Upload = () => {
             alert('Please enter the company details');
             return;
         }
+        // Start validation checks
+        if (!refs.projectName.current.value.trim()) {
+            alert('Please enter the project title');
+            return;
+        }
+        if (!refs.summary.current.value.trim()) {
+            alert('Please enter a project summary');
+            return;
+        }
+        if (!refs.description.current.value.trim()) {
+            alert('Please enter a detailed project description');
+            return;
+        }
+        if (!refs.teamMembers.current.value.trim()) {
+            alert('Please enter team members');
+            return;
+        }
 
         // Logic for handling company data
         let selectedDepartmentValue = isOtherDeptSelected ? state.otherDepartment : state.selectedDepartment;
