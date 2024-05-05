@@ -417,24 +417,22 @@ input[type="number"]::placeholder {
 
 
 .deleteButton {
-  position: relative;
-  top: -13px; /* Move button down */
-  left: 50px; /* Move button to the right */
+  position: absolute;  /* Use absolute positioning */
+  top: 50%;            /* Set the top distance to 50% of the container */
+  left: 50%;           /* Set the left distance to 50% of the container */
+  transform: translate(-50%, -50%); /* Offset the button by 50% of its own width and height to center it perfectly */
   background: #DE1313;
-  border: 3px solid rgba(109, 116, 122, 0.278431);
   border-radius: 8px;
   width: 50px;
-
   font-family: 'Inter';
-  font-style: normal;
   font-weight: 900;
   font-size: 13px;
   line-height: 24px;
   text-align: center;
   color: #FFFFFF;
   border: 1px solid rgba(51, 51, 51, 0.2);
-
 }
+
 
 .deleteButton:hover {
   background-color: #E57373;
