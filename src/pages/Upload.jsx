@@ -7,6 +7,22 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const Upload = () => {
+    // Refs and other existing code...
+    const [miscURLs, setMiscURLs] = useState([]);  // Add this line for misc URLs
+
+    const addMiscURL = () => {
+        setMiscURLs([...miscURLs, '']);
+    };
+
+    const removeMiscURL = (index) => {
+        const newMiscURLs = miscURLs.filter((_, i) => i !== index);
+        setMiscURLs(newMiscURLs);
+    };
+
+    const updateMiscURL = (index, value) => {
+        const newMiscURLs = miscURLs.map((url, i) => i === index ? value : url);
+        setMiscURLs(newMiscURLs);
+    };
     // Refs for form inputs
     const refs = {
         award: React.useRef(),
@@ -394,9 +410,25 @@ export const Upload = () => {
                             <input type="text" ref={refs.slide} className="border rounded px-2 py-1"></input>
                         </FormItem>
 
-
+                        {/* The first Misc */}
                         <FormItem label="Misc URL">
                             <input type="text" ref={refs.misc} className="border rounded px-2 py-1"></input>
+                        </FormItem>
+
+                        {/* Additional Misc */}
+                        <FormItem label="Misc URLs">
+                            {miscURLs.map((url, index) => (
+                            <div key={index}>
+                                <input 
+                                    type="text" 
+                                    value={url}
+                                    onChange={(e) => updateMiscURL(index, e.target.value)}
+                                    className="border rounded px-2 py-1"
+                                />
+                                <button type="button" onClick={() => removeMiscURL(index)}>Delete</button>
+                            </div>
+                        ))}
+                        <button type="button" onClick={addMiscURL}>Add URL</button>
                         </FormItem>
                     </div>
 
