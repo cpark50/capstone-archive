@@ -31,6 +31,7 @@ export const Upload = () => {
 
     // State variables
     const [companies, setCompanies] = useState([]);
+    const [isFormValid, setIsFormValid] = useState(true);
     const [state, setState] = useState({
         awardChecked: false,
         endQuarter: 'Fall',
@@ -109,50 +110,36 @@ export const Upload = () => {
     // Event handler for form submission
     const handleSave = async (e) => {
         e.preventDefault();
+        let isValid = true; //If the form is valid
+        //Check all the input
+        const requiredFields = [
+            refs.projectName.current.value,
+            refs.summary.current.value,
+            refs.description.current.value,
+            refs.teamMembers.current.value,
+            refs.course.current.value,
+            refs.faculty.current.value,
+            refs.liasons.current.value,
+            (state.selectedDepartment !== 'Select Department'),
+            (state.selectedCompany !== 'Select Company'),
+            (isOtherDeptSelected ? state.otherDepartment : true),
+            (isOtherCompSelected ? state.otherCompany : true),
+        ];
+        if (requiredFields.some(field => !field)) {
+            isValid = false;
+        }
+        setIsFormValid(isValid);
 
+        if (!isValid) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+        
         // Check if the company with the same name already exists
         const existingCompany = companies.find(company => company.companyName === state.otherCompany);
 
         if (existingCompany) {
             alert('Company with this name already exists. Please choose a different name.');
-            return;
-        }
-
-        // Additional form validation checks...
-        if (state.selectedDepartment === 'Select Department') {
-            alert('Please select a department');
-            return;
-        }
-
-        if (state.selectedCompany === 'Select Company') {
-            alert('Please select a Company');
-            return;
-        }
-
-        if (isOtherDeptSelected && state.otherDepartment === '') {
-            alert('Please enter the other department');
-            return;
-        }
-
-        if (isOtherCompSelected && state.otherCompany === '') {
-            alert('Please enter the company details');
-            return;
-        }
-        // Start validation checks
-        if (!refs.projectName.current.value.trim()) {
-            alert('Please enter the project title');
-            return;
-        }
-        if (!refs.summary.current.value.trim()) {
-            alert('Please enter a project summary');
-            return;
-        }
-        if (!refs.description.current.value.trim()) {
-            alert('Please enter a detailed project description');
-            return;
-        }
-        if (!refs.teamMembers.current.value.trim()) {
-            alert('Please enter team members');
             return;
         }
 
