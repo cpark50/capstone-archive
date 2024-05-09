@@ -7,9 +7,12 @@ import { AuthContext } from "../context/AuthContext";
 
 
 
+
 export const Head = () => {
 
   const [seen, setSeen] = useState(false)
+  const [message, setMessage] = useState("");
+
   let nav = "/login"
   // let logout = "/logout"
 
@@ -26,6 +29,7 @@ export const Head = () => {
   }
 
   const { dispatch } = useContext(AuthContext)
+  
 
   function togglePop() {
     setSeen(!seen);
@@ -33,6 +37,7 @@ export const Head = () => {
 
   function logout() {
     dispatch({ type: "LOGOUT" })
+    setMessage("You have successfully logged out.");
     return <div>
       <link rel="stylesheet" href="/" />
     </div>
@@ -70,6 +75,14 @@ export const Head = () => {
           </div>
         </div>
         <div class="bg-yellow-300 opacity-75 w-full h-1.5 mt-2">
+        {message && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4" role="alert">
+        <strong className="font-bold">{message}</strong>
+        <span className="block sm:inline"></span>
+  </div>
+)}
+
+
         </div>
       </div>
     </div>
