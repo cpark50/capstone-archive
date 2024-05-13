@@ -229,7 +229,7 @@ const ProjectCard = ({ project }) => {
               </p>
             </div>
             <div className="mt-14">
-              {videoURL !== "N/A" ? (
+              {videoURL ? (
                 <div className="">
                   <p className=" text-[#456386] uppercase alex-font text-lg">{videoName}</p>
                   <iframe
@@ -242,7 +242,7 @@ const ProjectCard = ({ project }) => {
                   ></iframe>
                 </div>
               ) : (
-                <p>Video: N/A</p>
+                <p>No video available</p>
               )}
             </div>
           </div>
