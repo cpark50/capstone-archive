@@ -191,17 +191,22 @@ export const Verifer = () => {
                             {/* Add options for roles */}
                         </select>
                     </div>
-                    <div className="verifier-buttons">
-                        {/* ADD STUDENT POPUP  */}
-                        <StudentPopup />
 
+                    <div className="flex justify-center items-center -mt-5">
                         <Link to="/verify">
-                            <button className=" border-2 border-slate-800 text-slate-800 p-2 rounded-md hover:text-white hover:bg-slate-900 text-lg duration-300">
+                            <button className="border-2 border-green-600 text-green-600 p-3 rounded-md hover:text-white hover:bg-green-700 text-2xl duration-300">
                                 Verify Projects
                             </button>
                         </Link>
-
                     </div>
+
+                    <div className="verifier-buttons">
+                        {/* ADD STUDENT POPUP  */}
+                        <StudentPopup />
+                    </div>
+                   
+
+                
                 </div>
 
 
