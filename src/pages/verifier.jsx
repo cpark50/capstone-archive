@@ -194,7 +194,7 @@ export const Verifer = () => {
 
                     <div className="flex justify-center items-center -mt-5">
                         <Link to="/verify">
-                            <button className="border-2 border-green-600 text-green-600 p-3 rounded-md hover:text-white hover:bg-green-700 text-2xl duration-300">
+                            <button className="border-2 border-blue-600 text-blue-600 p-3 rounded-md hover:text-white hover:bg-green-700 text-2xl duration-300">
                                 Verify Projects
                             </button>
                         </Link>

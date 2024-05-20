@@ -234,8 +234,8 @@ const ProjectCard = ({ project }) => {
                   <p className=" text-[#456386] uppercase alex-font text-lg">{videoName}</p>
                   <iframe
                     title="Embedded Video"
-                    width="412"
-                    height="232"
+                    width="600"
+                    height="400"
                     src={videoURL}
                     frameBorder="0"
                     allowFullScreen
