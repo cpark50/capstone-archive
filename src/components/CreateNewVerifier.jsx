@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import "../pages/admin-styles.css";
+import "../pages/addVerifier-styles.css";
 
 const VerifierPopup = () => {
     const auth = getAuth()
@@ -104,10 +104,9 @@ const VerifierPopup = () => {
             </svg>Add Verifier </button>}
             modal closeOnDocumentClick>
             <div className="pop-up">
-                <h2 className="popup-add" > Add New Verifier</h2>
+                <h2 className="popup-title" > Add New Verifier</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Call on generate users button */}
-                    <hr className="divider" />
 
                     <div>
                         <label htmlFor="department">Department: </label>
@@ -123,10 +122,9 @@ const VerifierPopup = () => {
                             <option value="Engineering">Engineering</option>
                             <option value="Informatics">Informatics</option>
                         </select>
-                        <hr className="divider" />
                     </div>
 
-                    <span class="create-verifier-text">Create Verifier</span>
+                    {/* <span class="create-verifier-text">Create Verifier</span> */}
                     <button type="submit" class="generate-verifier-btn" onClick={handleSubmit}>Create Verifier</button>
                 </form>
                 {/* <button type="submit">Close</button> */}

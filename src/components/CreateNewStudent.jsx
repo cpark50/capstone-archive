@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs, query } from 'firebase/firestore';
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import '../pages/admin-styles.css';
+import "../pages/addVerifier-styles.css";
 const StudentPopup = () => {
     const auth = getAuth()
     const [department, setDepartment] = useState('TEMP');
@@ -99,15 +99,10 @@ const StudentPopup = () => {
                 <h2 className="popup-title" > Add New Student</h2>
                 <form >
                     {/* Call on generate users button */}
-                    <hr className="divider" />
                     <div>
-                        <span class="generate-user-text">Generate User</span>
-                        <hr className="divider" />
                         <button class="generate-user-btn" onClick={generateUser}>Generate User</button>
                     </div>
                     <div>
-                        <span class="generate-passsword-text">Generate Password</span>
-                        <hr className="divider" />
                         <button class="generate-password-btn" onClick={generatePassword}>Generate Password</button>
                     </div>
                     <div>
@@ -119,11 +114,9 @@ const StudentPopup = () => {
                             onChange={(e) => setNumber(e.target.value)}
                             placeholder="Enter a number"
                         />
-                        <hr className="divider" />
 
                     </div>
 
-                    <span class="create-verifier-text">Create Student</span>
                     <button type="submit" class="generate-verifier-btn" onClick={handleSubmit}>Create Student</button>
                 </form>
                 {/* <button type="submit">Close</button> */}
