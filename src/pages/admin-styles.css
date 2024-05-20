@@ -386,10 +386,11 @@ input[type="number"]::placeholder {
 }
 
 .editButton {
-  position: absolute;
-  top: 50%;
-  left: calc(50% - 60px); /* Subtracting 60px to move it left of the delete button */
-  transform: translateY(-50%); /* Only translate on the Y-axis to center it vertically */
+  position: relative;
+  left: -10px;
+  /* Move button to the right */
+  top: 13px;
+
   background: #1EAF24;
   border: 3px solid rgba(109, 116, 122, 0.278431);
   border-radius: 8px;
@@ -439,7 +440,7 @@ input[type="number"]::placeholder {
 
 .deleteButton:active {
   background-color: #B71C1C;
-  transform: translateY(2px);
+
 }
 
 /* --------------------------------Edit interface---------------------------------- */
