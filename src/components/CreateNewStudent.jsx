@@ -41,7 +41,7 @@ const StudentPopup = () => {
     }
 
     const generatePassword = () => {
-        let passwordLength = 12;
+        let passwordLength = 6;
         let newPassword = "";
         for (let i = 0; i < passwordLength; i++) {
             newPassword += charset.charAt(Math.floor(Math.random() * charset.length));
