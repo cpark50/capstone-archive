@@ -50,9 +50,8 @@ const CheckUID = () => {
 export const Verifer = () => {
     ModuleRegistry.registerModules([RowGroupingModule]);
     const [data, setData] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
+    // const [selectedUser, setSelectedUser] = useState(null);
     const user = CheckUID()
-
 
     // maybe move to just the context so we don't need to import then created user var
 
