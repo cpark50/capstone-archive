@@ -1,23 +1,16 @@
-import React, { useState } from "react";
-import Popup from "reactjs-popup";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-  getDocs,
-  query,
-} from "firebase/firestore";
-import { firestore } from "../firebase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import "../pages/addVerifier-styles.css";
+import React, { useState, useEffect } from 'react';
+import Popup from 'reactjs-popup';
+import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs, query } from 'firebase/firestore';
+import { firestore } from "../firebase"
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import '../pages/admin-styles.css';
 
 const VerifierPopup = () => {
     const auth = getAuth()
     const [department, setDepartment] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [generated, setGenerated] = useState(false);
 
   const [details, setDetails] = useState({
     name: "0",
@@ -35,38 +28,47 @@ const VerifierPopup = () => {
   const charset =
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  const generateUser = () => {
-    let userLength = 12;
-    let newUser = "";
-    for (let i = 0; i < userLength; i++) {
-      newUser += charset.charAt(Math.floor(Math.random() * charset.length));
-    }
+    const generateUser = () => {
+        let userLength = 6;
+        let newUser = "";
+        for (let i = 0; i < userLength; i++) {
+            newUser += charset.charAt(Math.floor(Math.random() * charset.length));
+        }
 
     newUser += "@verifier.com";
 
     setUsername(newUser);
   };
 
-  const generatePassword = () => {
-    let passwordLength = 12;
-    let newPassword = "";
-    for (let i = 0; i < passwordLength; i++) {
-      newPassword += charset.charAt(Math.floor(Math.random() * charset.length));
-    }
+    const generatePassword = () => {
+        let passwordLength = 6;
+        let newPassword = "";
+        for (let i = 0; i < passwordLength; i++) {
+            newPassword += charset.charAt(Math.floor(Math.random() * charset.length));
+        }
 
     setPassword(newPassword);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    
+    useEffect(() => {
+        // Generate username and password
+        if (!generated) {
+            generateUser();
+            generatePassword();
+        }
+    }, [generated]); // Run this effect when generated state changes
 
-    console.log("creating");
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("creating")
 
-        if (department != "" && username != "" && password != "") {
+
+        if (department != "") {
             try {
 
+
+                console.log(username)
 
                 // Information for the account being created (verifier)
                 const userCredential = await createUserWithEmailAndPassword(auth, username, password);

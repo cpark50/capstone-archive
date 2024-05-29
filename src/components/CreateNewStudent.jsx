@@ -41,7 +41,7 @@ const StudentPopup = () => {
     }
 
     const generatePassword = () => {
-        let passwordLength = 12;
+        let passwordLength = 6;
         let newPassword = "";
         for (let i = 0; i < passwordLength; i++) {
             newPassword += charset.charAt(Math.floor(Math.random() * charset.length));
@@ -59,6 +59,7 @@ const StudentPopup = () => {
                 // Create user in Firebase Authentication
                 // TURN BACK ON LATER< OFF FOR TESTING
 
+
                 const taInfo = auth.currentUser.uid
 
                 // Information for the account being created (student)
@@ -67,7 +68,7 @@ const StudentPopup = () => {
 
 
                 // set Name to something else
-                await setDoc(doc(firestore, `users/${taInfo}/students`, username),
+                await setDoc(doc(firestore, `users/${taInfo}/students`, user.uid),
                     {
                         // generate new name in other document 
                         name: username,
@@ -78,6 +79,7 @@ const StudentPopup = () => {
                         status: true,
                         projectStatus: "unsubmitted",
                         projectID: null,
+                        studentUID: user.uid
                     });
                 // Add user details to Firestore
             } catch (error) {
