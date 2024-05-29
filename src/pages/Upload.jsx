@@ -465,20 +465,7 @@ export const Upload = () => {
                         </FormItem>
 
                         {/* Additional Misc */}
-                        <FormItem label="Misc URLs">
-                            {miscURLs.map((url, index) => (
-                            <div key={index}>
-                                <input 
-                                    type="text" 
-                                    value={url}
-                                    onChange={(e) => updateMiscURL(index, e.target.value)}
-                                    className="border rounded px-2 py-1"
-                                />
-                                <button type="button" onClick={() => removeMiscURL(index)}>Delete</button>
-                            </div>
-                        ))}
-                        <button type="button" onClick={addMiscURL}>Add URL</button>
-                        </FormItem>
+                       
                     </div>
 
                     <div className="flex justify-center w-full col-span-full">
