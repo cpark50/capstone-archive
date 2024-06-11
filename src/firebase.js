@@ -27,6 +27,8 @@ export const firestore = getFirestore(app);
 export const storage = getStorage(app);
 export const apiKey = firebaseConfig.apiKey;
 
+
+// User Authentication Delete
 export const deleteUserAuth = async (id) => {
   try {
       await deleteFirebaseUser(auth.currentUser); // Pass auth.currentUser as argument
@@ -37,6 +39,8 @@ export const deleteUserAuth = async (id) => {
   }
 };
 
+
+// Update User Email
 export const updateUserEmail = async (id, newEmail) => {
   try {
     await updateEmail(auth.currentUser, newEmail);
@@ -47,6 +51,8 @@ export const updateUserEmail = async (id, newEmail) => {
   }
 };
 
+
+// Update User Password
 export const updateUserPassword = async (id, newPassword) => {
   try {
     await updatePassword(auth.currentUser, newPassword);

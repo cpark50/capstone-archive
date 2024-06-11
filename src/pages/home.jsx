@@ -13,6 +13,7 @@ export default function Home() {
     const videoNameRef = React.useRef();
     const projectsRef = collection(firestore, 'projects');
 
+    // Use States
     const [imageUpload, setImageUpload] = useState(null);
     const [logoUpload, setLogoUpload] = useState(null);
     const [otherDepartment, setOtherDepartment] = useState('');
@@ -34,6 +35,7 @@ export default function Home() {
 
     const isOtherSelected = selectedDepartment === 'Other';
 
+    // Function to handle save
     const handleSave = async (e) => {
         e.preventDefault();
 
@@ -86,6 +88,7 @@ export default function Home() {
         }
     };
 
+    // HTML
     return (
         <div>
 

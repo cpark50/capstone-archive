@@ -36,10 +36,12 @@ import { type } from "@testing-library/user-event/dist/type/index.js";
 export const Admin = () => {
     ModuleRegistry.registerModules([RowGroupingModule]);
 
+    // Use States
     const [data, setData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [collapsed, setCollapsed] = useState(false)
 
+    // Function to load user accounds
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -71,11 +73,7 @@ export const Admin = () => {
         };
     }, []);
 
-    // probably can be exported to verifier, similiar functionality with id deletion
-    // TODOS: 
-    // 1: Ask for confirmation, DONE
-    // 2: Delete user from firebase, DONE
-    // RESTRICT DELETE IF student for now if verifier 
+    // Function to handle deletion of user
     const handleDelete = async (id) => {
 
         try {
@@ -96,11 +94,10 @@ export const Admin = () => {
     };
 
 
+    // Function to handle edit of user
     const handleEdit = (id) => {
         const userToEdit = data.find(user => user.id === id);
         setSelectedUser(userToEdit);
-        // Instead of rendering the popup conditionally in the return statement,
-        // you can directly return it here based on the selected user
         return (
             <EditUserPopup
                 id={id}
@@ -112,12 +109,11 @@ export const Admin = () => {
     };
 
 
+    // Function to save edit
     const handleSaveEdit = async (editedUser) => {
         try {
-            // Update Firestore document with edited user data
             await updateDoc(doc(firestore, "users", editedUser.id), editedUser);
             console.log("User updated successfully:", editedUser);
-            // Close the popup
             setSelectedUser(null);
         } catch (error) {
             console.log("Error updating user:", error);
@@ -136,7 +132,7 @@ export const Admin = () => {
 
     };
 
-    // probably can be exported to verifier
+    // Function to load actions per user
     const actionColumn = [
         {
             field: "action",
@@ -171,7 +167,7 @@ export const Admin = () => {
         },
     ];
 
-
+    // HTML
     return (
         <div className="main-background" id="outer-container">
             <div id="page-wrap">

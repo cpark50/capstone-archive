@@ -4,6 +4,8 @@ import { updateDoc, doc } from "firebase/firestore";
 import { firestore, updateUserEmail, updateUserPassword } from "../firebase";
 import "../pages/admin-styles.css";
 
+
+// Popup to edit a user
 const EditUserPopup = ({ id, user, onSave, onClose }) => {
   const [editedUser, setEditedUser] = useState(user);
 

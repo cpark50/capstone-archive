@@ -11,21 +11,24 @@ export const Login = () => {
     // const params = useParams();
     let navigatePage = "/"
 
+    // Use States
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(""); // Add a state to store error messages
     const navigate = useNavigate();
 
 
+    // Function to handle email edit
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
-        setErrorMessage(""); // Clear error message when user starts typing
+        setErrorMessage("");
 
     };
 
+    // Function to handle password edit
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-        setErrorMessage(""); // Clear error message when user starts typing
+        setErrorMessage(""); 
     };
 
     const { dispatch } = useContext(AuthContext)
@@ -90,7 +93,7 @@ export const Login = () => {
 
     }
 
-
+    // HTML
     return (
 
         <div className="LoginForm">

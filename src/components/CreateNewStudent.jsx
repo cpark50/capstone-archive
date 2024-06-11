@@ -4,8 +4,13 @@ import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs, query } from
 import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
+
+// Create new Student Popup
 const StudentPopup = () => {
+    // Auth state
     const auth = getAuth()
+
+    // Use States
     const [department, setDepartment] = useState('TEMP');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -27,6 +32,7 @@ const StudentPopup = () => {
 
     const charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+    // Generate Random user
     const generateUser = () => {
         let userLength = 12;
         let newUser = "";
@@ -40,6 +46,7 @@ const StudentPopup = () => {
 
     }
 
+    // Generate Random password
     const generatePassword = () => {
         let passwordLength = 6;
         let newPassword = "";
@@ -94,6 +101,7 @@ const StudentPopup = () => {
     };
 
 
+    // HTML
     return (
         <Popup trigger={<button className='add-verifier'>Add Student</button>}
             modal closeOnDocumentClick>

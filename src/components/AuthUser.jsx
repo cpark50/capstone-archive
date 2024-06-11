@@ -4,7 +4,7 @@ import { auth } from "../firebase";
 
 
 
-
+// Returns Athentication State
 const AuthUser = () => {
     const [authUser, setAuthUser] = useState(null)
 

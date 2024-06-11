@@ -6,7 +6,6 @@ import { AuthContext } from "../context/AuthContext";
 import { firestore } from "../firebase.js";
 
 
-
 const CheckUID = () => {
     const { uid } = useContext(AuthContext);
     return uid;
@@ -15,7 +14,7 @@ const CheckUID = () => {
 export const Student = () => {
     const user = CheckUID()
 
-
+    // Use States
     const [data, setData] = useState({ projectID: null, projectStatus: 'Unsubmitted' });
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [projectStatus, setProjectStatus] = useState('Unsubmitted');
@@ -70,7 +69,7 @@ export const Student = () => {
     }, [user, firestore]); // Re-run the effect when user or firestore changes
 
 
-
+    // HTML
     return (
 
         <div className="student-main" id="outer-container" style={{

@@ -5,8 +5,12 @@ import { firestore } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../pages/admin-styles.css';
 
+// Generate new Verifier Account
 const VerifierPopup = () => {
+    // Auth State
     const auth = getAuth()
+
+    // Use States
     const [department, setDepartment] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -28,6 +32,7 @@ const VerifierPopup = () => {
 
     const charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+    // Generate random user
     const generateUser = () => {
         let userLength = 6;
         let newUser = "";
@@ -41,6 +46,7 @@ const VerifierPopup = () => {
 
     }
 
+    // Generate random password
     const generatePassword = () => {
         let passwordLength = 6;
         let newPassword = "";
@@ -100,6 +106,7 @@ const VerifierPopup = () => {
     };
 
 
+    // HTML
     return (
         <Popup trigger={<button style={{ position: 'relative' }}>
             <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: 'absolute', top: '50%', left: '95px', transform: 'translate(-50%, -50%)' }}>

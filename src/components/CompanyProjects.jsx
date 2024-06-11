@@ -3,6 +3,8 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import { Project } from './Project';
 
+
+// Fetches Projects under Company via Filter
 const CompanyProjects = ({ companyName }) => {
   const [projects, setProjects] = useState([]);
   const [isOpen, setIsOpen] = useState(false);

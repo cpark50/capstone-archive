@@ -1,6 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 import AuthReducer from "./AuthReducer";
 
+// Authentication State
 const INITIAL_STATE = {
     currentUser: null, // FOR SOME REASON THIS IS ALWAYS GOING TO BE UNDEFINED AHHHHHHHH
     permissionLevel: JSON.parse(localStorage.getItem("user")) || null,
